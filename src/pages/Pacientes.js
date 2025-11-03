@@ -13,7 +13,7 @@ const Pacientes = () => {
   } = useData();
 
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('add'); // 'add' ou 'edit'
+  const [modalMode, setModalMode] = useState('add'); 
   const [currentPatient, setCurrentPatient] = useState(null);
   const [showProntuario, setShowProntuario] = useState(false);
   const [currentProntuario, setCurrentProntuario] = useState(null);
@@ -28,7 +28,6 @@ const Pacientes = () => {
     status: 'ativo'
   });
 
-  // Atualizar formData quando currentPatient mudar
   useEffect(() => {
     if (currentPatient) {
       setFormData({
@@ -53,40 +52,34 @@ const Pacientes = () => {
     }
   }, [currentPatient]);
 
-  // Filtrar pacientes com base no termo de pesquisa
   const filteredPacientes = pacientes.filter(paciente => 
     paciente.nome.toLowerCase().includes(searchTerm.toLowerCase()) || 
     (paciente.cpf && paciente.cpf.includes(searchTerm))
   );
 
-  // Abrir modal para adicionar novo paciente
   const handleAddPatient = () => {
     setModalMode('add');
     setCurrentPatient(null);
     setShowModal(true);
   };
 
-  // Abrir modal para editar paciente existente
   const handleEditPatient = (patient) => {
     setModalMode('edit');
     setCurrentPatient(patient);
     setShowModal(true);
   };
 
-  // Abrir modal para visualizar prontuário
   const handleViewProntuario = (patient) => {
     setCurrentProntuario(patient);
     setShowProntuario(true);
   };
 
-  // Excluir paciente
   const handleDeletePatient = (id) => {
     if (window.confirm('Tem certeza que deseja excluir este paciente?')) {
       removerPaciente(id);
     }
   };
 
-  // Atualizar dados do formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -95,7 +88,6 @@ const Pacientes = () => {
     });
   };
 
-  // Salvar paciente (novo ou editado)
   const handleSavePatient = (e) => {
     e.preventDefault();
     
@@ -121,7 +113,7 @@ const Pacientes = () => {
         </div>
       ) : (
         <>
-          {/* Barra de ações */}
+          {}
           <Row className="mb-4">
             <Col md={6}>
               <div className="d-flex">
@@ -144,7 +136,7 @@ const Pacientes = () => {
             </Col>
           </Row>
       
-      {/* Tabela de pacientes */}
+      {}
       <Card className="mb-4">
         <Card.Body>
           <div className="table-responsive">
@@ -191,7 +183,7 @@ const Pacientes = () => {
       </>
       )}
 
-      {/* Modal para adicionar/editar paciente */}
+      {}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>{modalMode === 'add' ? 'Adicionar Novo Paciente' : 'Editar Paciente'}</Modal.Title>
@@ -269,7 +261,7 @@ const Pacientes = () => {
         </Modal.Body>
       </Modal>
 
-      {/* Modal para visualizar prontuário */}
+      {}
       <Modal show={showProntuario} onHide={() => setShowProntuario(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Prontuário - {currentProntuario?.nome}</Modal.Title>

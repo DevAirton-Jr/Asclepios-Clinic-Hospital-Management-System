@@ -19,7 +19,6 @@ const Relatorios = () => {
   const [dataFim, setDataFim] = useState('');
   const [relatorioGerado, setRelatorioGerado] = useState(false);
 
-  // Inicializa as datas com o mês atual
   useEffect(() => {
     const hoje = new Date();
     const primeiroDia = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
@@ -29,12 +28,10 @@ const Relatorios = () => {
     setDataFim(ultimoDia.toISOString().split('T')[0]);
   }, []);
 
-  // Gera dados de relatório com base nos dados reais
   const gerarDadosRelatorio = () => {
     setRelatorioGerado(true);
   };
 
-  // Calcula dados para relatórios com base nos dados reais
   const dadosRelatorio = {
     atendimentos: [
       { 
@@ -156,7 +153,6 @@ const Relatorios = () => {
     ]
   };
 
-  // Renderização do gráfico simplificado
   const renderGrafico = () => {
     const dados = dadosRelatorio[tipoRelatorio];
     
@@ -180,7 +176,6 @@ const Relatorios = () => {
     );
   };
 
-  // Renderização da tabela de dados
   const renderTabela = () => {
     const dados = dadosRelatorio[tipoRelatorio];
     
@@ -304,13 +299,13 @@ const Relatorios = () => {
                     </div>
                   </Card.Header>
                   <Card.Body>
-                    {/* Gráfico simplificado */}
+                    {}
                     <div className="border-bottom pb-4">
                       <h6 className="text-center text-muted mb-3">Distribuição Percentual</h6>
                       {renderGrafico()}
                     </div>
                     
-                    {/* Tabela de dados */}
+                    {}
                     <div className="pt-2">
                       <h6 className="text-muted mb-2">Detalhamento</h6>
                       {renderTabela()}

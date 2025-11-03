@@ -17,8 +17,7 @@ const Farmacia = () => {
     fabricante: '',
     descricao: ''
   });
-  
-  // Dispensações recentes (simuladas)
+
   const dispensacoes = [
     { id: 1, paciente: 'Maria Silva', medicamento: 'Dipirona', quantidade: 10, data: '10/06/2023', medico: 'Dr. Carlos Santos' },
     { id: 2, paciente: 'João Oliveira', medicamento: 'Amoxicilina', quantidade: 15, data: '11/06/2023', medico: 'Dra. Ana Pereira' },
@@ -26,18 +25,15 @@ const Farmacia = () => {
     { id: 4, paciente: 'Ana Souza', medicamento: 'Omeprazol', quantidade: 20, data: '13/06/2023', medico: 'Dra. Mariana Alves' },
   ];
 
-  // Filtrar medicamentos com base no termo de pesquisa
   const filteredMedications = medicamentos.filter(med => 
     med.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
     med.categoria.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Estatísticas de medicamentos
   const medicamentosDisponiveis = medicamentos.filter(med => med.status === 'disponível').length;
   const medicamentosBaixoEstoque = medicamentos.filter(med => med.status === 'baixo').length;
   const medicamentosCritico = medicamentos.filter(med => med.status === 'crítico').length;
-  
-  // Função para renderizar o status com a cor apropriada
+
   const renderStatus = (status) => {
     let variant = 'secondary';
     let displayText = status.charAt(0).toUpperCase() + status.slice(1);
@@ -53,7 +49,6 @@ const Farmacia = () => {
     return <Badge bg={variant}>{displayText}</Badge>;
   };
 
-  // Atualiza o formulário quando um medicamento é selecionado para edição
   useEffect(() => {
     if (currentMedication) {
       setFormData({
@@ -76,7 +71,6 @@ const Farmacia = () => {
     }
   }, [currentMedication]);
 
-  // Funções para lidar com ações
   const handleNovoMedicamento = () => {
     setCurrentMedication(null);
     setModalMode('add');
@@ -120,8 +114,7 @@ const Farmacia = () => {
 
   const handleSaveMedication = (e) => {
     e.preventDefault();
-    
-    // Determinar o status com base no estoque
+
     const estoque = parseInt(formData.estoque);
     const status = estoque <= 10 ? 'Crítico' : 
                   estoque <= 50 ? 'Baixo Estoque' : 'Disponível';
@@ -156,7 +149,7 @@ const Farmacia = () => {
             <Col>
               <h2 className="mb-4">Farmácia</h2>
               
-              {/* Cards de estatísticas */}
+              {}
               <Row className="g-4 mb-4">
                 <Col md={4}>
                   <Card className="dashboard-card h-100 border-primary">
@@ -199,7 +192,7 @@ const Farmacia = () => {
             </Col>
           </Row>
           
-          {/* Tabela de Medicamentos */}
+          {}
           <Card className="mb-4">
             <Card.Header className="d-flex justify-content-between align-items-center">
               <span>Estoque de Medicamentos</span>
@@ -260,7 +253,7 @@ const Farmacia = () => {
             </Card.Body>
           </Card>
           
-          {/* Dispensações Recentes */}
+          {}
           <Card>
             <Card.Header className="d-flex justify-content-between align-items-center">
               <span>Dispensações Recentes</span>
@@ -295,7 +288,7 @@ const Farmacia = () => {
       </>
       )}
 
-      {/* Modal para adicionar/editar/visualizar medicamento */}
+      {}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>

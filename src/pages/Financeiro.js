@@ -15,7 +15,6 @@ const Financeiro = () => {
   });
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Atualiza formData quando currentTransacao muda
   useEffect(() => {
     if (currentTransacao) {
       setFormData({
@@ -34,7 +33,6 @@ const Financeiro = () => {
     }
   }, [currentTransacao]);
 
-  // Função para lidar com mudanças nos inputs do formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -43,7 +41,6 @@ const Financeiro = () => {
     });
   };
 
-  // Função para salvar transação (nova ou editada)
   const handleSave = () => {
     const transacaoData = {
       ...formData,
@@ -60,32 +57,27 @@ const Financeiro = () => {
     setCurrentTransacao(null);
   };
 
-  // Função para abrir modal de edição
   const handleEdit = (transacao) => {
     setCurrentTransacao(transacao);
     setShowModal(true);
   };
 
-  // Função para abrir modal de nova transação
   const handleNovaTransacao = () => {
     setCurrentTransacao(null);
     setShowModal(true);
   };
 
-  // Função para excluir transação
   const handleDelete = (id) => {
     if (window.confirm('Tem certeza que deseja excluir esta transação?')) {
       removerTransacao(id);
     }
   };
 
-  // Filtragem de transações com base no termo de busca
   const transacoesFiltradas = transacoes.filter(transacao => 
     transacao.descricao.toLowerCase().includes(searchTerm.toLowerCase()) ||
     transacao.data.includes(searchTerm)
   );
 
-  // Cálculo de estatísticas financeiras
   const estatisticas = {
     totalReceitas: transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0),
     totalDespesas: transacoes.filter(t => t.tipo === 'despesa').reduce((acc, t) => acc + t.valor, 0),
@@ -97,7 +89,6 @@ const Financeiro = () => {
     }
   };
 
-  // Formatação de valores monetários
   const formatarMoeda = (valor) => {
     return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   };
@@ -111,7 +102,7 @@ const Financeiro = () => {
         </div>
       ) : (
         <>
-          {/* Estatísticas financeiras */}
+          {}
           <Row className="mb-4">
             <Col md={3}>
               <Card className="h-100 shadow-sm">
@@ -151,7 +142,7 @@ const Financeiro = () => {
             </Col>
           </Row>
 
-          {/* Gráfico simplificado */}
+          {}
           <Card className="mb-4 shadow-sm">
             <Card.Header className="bg-white d-flex justify-content-between align-items-center">
               <h5 className="mb-0">Resumo Financeiro</h5>
@@ -189,7 +180,7 @@ const Financeiro = () => {
             </Card.Body>
           </Card>
 
-          {/* Barra de pesquisa */}
+          {}
           <div className="mb-3">
             <Form.Control
               type="text"
@@ -199,7 +190,7 @@ const Financeiro = () => {
             />
           </div>
 
-          {/* Tabela de transações */}
+          {}
           <Card className="shadow-sm">
             <Card.Header className="bg-white d-flex justify-content-between align-items-center">
               <h5 className="mb-0">Transações Recentes</h5>
@@ -259,7 +250,7 @@ const Financeiro = () => {
             </Card.Body>
           </Card>
 
-          {/* Modal para adicionar/editar transação */}
+          {}
           <Modal show={showModal} onHide={() => setShowModal(false)}>
             <Modal.Header closeButton>
               <Modal.Title>{currentTransacao ? 'Editar Transação' : 'Nova Transação'}</Modal.Title>

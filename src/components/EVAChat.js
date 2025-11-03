@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState, useContext } from 'react';
 import { Modal, Button, Form, InputGroup, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../context/DataContext';
-// Chatbot EVA: interpreta comandos de navegação, consultas e small talk
 
 const initialGreetings = [
   'Olá! Eu sou a EVA, assistente da clínica.',
@@ -24,7 +23,6 @@ const EVAChat = ({ show, handleClose }) => {
     }
   }, [show]);
 
-  // Pequenas conversas para respostas amigáveis
   const smallTalk = useMemo(() => ({
     'bom dia': 'Bom dia! Espero que seu dia seja produtivo. Como posso ajudar?',
     'boa tarde': 'Boa tarde! Em que posso ser útil?',
@@ -34,7 +32,6 @@ const EVAChat = ({ show, handleClose }) => {
     'tudo bem': 'Tudo ótimo por aqui! E por aí? Posso ajudar com algo?'
   }), []);
 
-  // Intenções de navegação (rotas) mapeadas por regex
   const routerIntents = [
     { pattern: /abrir\s+(pacientes?)/i, action: () => navigate('/pacientes'), reply: 'Abrindo Pacientes.' },
     { pattern: /abrir\s+(agendamentos?)/i, action: () => navigate('/agendamentos'), reply: 'Abrindo Agendamentos.' },
@@ -44,7 +41,6 @@ const EVAChat = ({ show, handleClose }) => {
     { pattern: /abrir\s+(dashboard)/i, action: () => navigate('/'), reply: 'Abrindo Dashboard.' },
   ];
 
-  // Intenções informativas usando dados do DataContext
   const infoIntents = [
     { pattern: /quantos\s+pacientes/i, reply: () => `Temos ${data.pacientes?.length || 0} pacientes cadastrados.` },
     { pattern: /quantos\s+agendamentos/i, reply: () => `Há ${data.agendamentos?.length || 0} agendamentos.` },
@@ -70,7 +66,7 @@ const EVAChat = ({ show, handleClose }) => {
   ];
 
   const handleSend = async (e) => {
-    // Fluxo de envio: normaliza texto, checa small talk, comandos, navegação, info e fallback
+    
     e?.preventDefault();
     if (!input.trim()) return;
     const userText = input.trim();
@@ -78,7 +74,6 @@ const EVAChat = ({ show, handleClose }) => {
     setInput('');
     setSending(true);
 
-    // Texto de ajuda exibido ao usuário quando solicita "ajuda" ou "comandos"
     const helpText = [
       'Aqui estão alguns comandos que você pode usar:',
       '• abrir pacientes | agendamentos | farmácia | financeiro | relatórios | dashboard',
@@ -88,7 +83,6 @@ const EVAChat = ({ show, handleClose }) => {
       '• bom dia | oi | tudo bem (educação/small talk)'
     ].join('\n');
 
-    // Small talk
     const normalized = userText.toLowerCase();
     for (const key of Object.keys(smallTalk)) {
       if (normalized.includes(key)) {
@@ -98,14 +92,12 @@ const EVAChat = ({ show, handleClose }) => {
       }
     }
 
-    // Ajuda/Comandos
     if (/\b(ajuda|comandos)\b/i.test(userText)) {
       setMessages(prev => [...prev, { role: 'eva', text: helpText }]);
       setSending(false);
       return;
     }
 
-    // Navegação
     for (const intent of routerIntents) {
       if (intent.pattern.test(userText)) {
         intent.action();
@@ -115,7 +107,6 @@ const EVAChat = ({ show, handleClose }) => {
       }
     }
 
-    // Informações
     for (const intent of infoIntents) {
       if (intent.pattern.test(userText)) {
         const reply = typeof intent.reply === 'function' ? intent.reply(userText) : intent.reply;
@@ -125,13 +116,12 @@ const EVAChat = ({ show, handleClose }) => {
       }
     }
 
-    // Fallback
     setMessages(prev => [...prev, { role: 'eva', text: 'Ainda não entendi. Posso ajudar com navegação e estatísticas. Experimente: "abrir pacientes" ou "quantos agendamentos". Diga "ajuda" para ver mais comandos.' }]);
     setSending(false);
   };
 
   return (
-    // Interface do modal: histórico, entrada e ações
+    
     <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
         <Modal.Title>

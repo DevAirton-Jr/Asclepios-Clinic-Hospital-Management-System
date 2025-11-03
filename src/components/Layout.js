@@ -9,17 +9,15 @@ import {
   FaUsers, FaMoneyBillWave, FaChartBar, FaBars, 
   FaSignOutAlt, FaUser, FaCog, FaRobot
 } from 'react-icons/fa';
-// Layout principal: header, sidebar, conteúdo e modais
 
 const Layout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  // Estados de UI: visibilidade do sidebar, perfil e chat EVA
+  
   const [showSidebar, setShowSidebar] = useState(false);
   const [showPerfilModal, setShowPerfilModal] = useState(false);
   const [showEVAModal, setShowEVAModal] = useState(false);
 
-  // Encerra sessão e redireciona para login
   const handleLogout = () => {
     logout();
     navigate('/login');
@@ -37,7 +35,7 @@ const Layout = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {/* Header */}
+      {}
       <Navbar bg="primary" variant="dark" expand="lg" className="py-2">
         <Container fluid>
           <Button 
@@ -62,7 +60,7 @@ const Layout = () => {
               </div>
               <div className="small">{user?.cargo} - {user?.setor}</div>
             </div>
-            {/* Removido botão EVA do header */}
+            {}
             <Button variant="outline-light" className="me-2" onClick={handlePerfilClick}>
               <FaCog className="me-2" />
               <span className="d-none d-md-inline">Perfil</span>
@@ -75,22 +73,22 @@ const Layout = () => {
         </Container>
       </Navbar>
 
-      {/* Modal EVA */}
+      {}
       <EVAChat show={showEVAModal} handleClose={() => setShowEVAModal(false)} />
 
-      {/* Modal de Perfil */}
+      {}
       <PerfilUsuario 
         show={showPerfilModal} 
         handleClose={() => setShowPerfilModal(false)} 
       />
       
       <div className="d-flex flex-grow-1">
-        {/* Sidebar para telas grandes */}
+        {}
         <div className="bg-dark text-white d-none d-lg-flex flex-column" style={{ width: '250px', minHeight: 'calc(100vh - 56px)' }}>
           <SidebarContent />
         </div>
 
-        {/* Sidebar para telas pequenas */}
+        {}
         <Offcanvas show={showSidebar} onHide={closeSidebar} className="bg-dark text-white" style={{ width: '250px' }}>
           <Offcanvas.Header closeButton closeVariant="white">
             <Offcanvas.Title className="text-white">Menu</Offcanvas.Title>
@@ -100,7 +98,7 @@ const Layout = () => {
           </Offcanvas.Body>
         </Offcanvas>
 
-        {/* Conteúdo principal */}
+        {}
         <div className="flex-grow-1 bg-light">
           <Container fluid className="py-4">
             <Outlet />
@@ -108,7 +106,7 @@ const Layout = () => {
         </div>
       </div>
 
-      {/* Botão flutuante para abrir EVA (canto inferior direito) */}
+      {}
       <Button 
         onClick={handleEVAClick}
         variant="primary"

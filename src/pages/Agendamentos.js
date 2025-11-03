@@ -17,7 +17,6 @@ const Agendamentos = () => {
     status: 'Aguardando'
   });
 
-  // Lista de médicos disponíveis
   const medicos = [
     { id: 1, nome: 'Dr. Carlos Santos', especialidade: 'Cardiologia' },
     { id: 2, nome: 'Dra. Ana Pereira', especialidade: 'Pediatria' },
@@ -26,7 +25,6 @@ const Agendamentos = () => {
     { id: 5, nome: 'Dr. Paulo Ribeiro', especialidade: 'Clínica Geral' }
   ];
 
-  // Atualiza o formulário quando um agendamento é selecionado para edição
   useEffect(() => {
     if (currentAppointment) {
       setFormData({
@@ -49,7 +47,6 @@ const Agendamentos = () => {
     }
   }, [currentAppointment]);
 
-  // Funções para lidar com ações
   const handleView = (appointment) => {
     setCurrentAppointment(appointment);
     setModalMode('view');
@@ -80,8 +77,7 @@ const Agendamentos = () => {
       ...formData,
       [name]: value
     });
-    
-    // Atualiza a especialidade automaticamente quando o médico é selecionado
+
     if (name === 'medico') {
       const selectedMedico = medicos.find(m => m.nome === value);
       if (selectedMedico) {
@@ -111,7 +107,6 @@ const Agendamentos = () => {
     setShowModal(false);
   };
 
-  // Função para renderizar o status com cores
   const renderStatus = (status) => {
     let variant;
     switch (status) {
@@ -196,7 +191,7 @@ const Agendamentos = () => {
         </>
       )}
 
-      {/* Modal para adicionar/editar/visualizar agendamento */}
+      {}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
           <Modal.Title>

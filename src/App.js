@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import { DataProvider } from './context/DataContext';
 
-// Páginas
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Pacientes from './pages/Pacientes';
@@ -13,7 +12,6 @@ import RecursosHumanos from './pages/RecursosHumanos';
 import Financeiro from './pages/Financeiro';
 import Relatorios from './pages/Relatorios';
 
-// Componentes
 import Layout from './components/Layout';
 
 function PrivateRoute({ children }) {

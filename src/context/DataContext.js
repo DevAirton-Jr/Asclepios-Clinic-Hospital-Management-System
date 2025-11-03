@@ -1,12 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Contexto de dados: fornece coleções simuladas e operações CRUD/estatísticas
 const DataContext = createContext();
 export { DataContext };
 export const useData = () => useContext(DataContext);
 
 export const DataProvider = ({ children }) => {
-  // Estados centrais do domínio
+  
   const [pacientes, setPacientes] = useState([]);
   const [agendamentos, setAgendamentos] = useState([]);
   const [medicamentos, setMedicamentos] = useState([]);
@@ -15,9 +14,9 @@ export const DataProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simula carregamento inicial (substituir por chamada de API futuramente)
+    
     setTimeout(() => {
-      // Pacientes (amostra)
+      
       setPacientes([
         { id: 1, nome: 'João Silva', idade: 45, genero: 'Masculino', telefone: '(11) 98765-4321', convenio: 'Unimed', ultimaConsulta: '10/06/2023', status: 'ativo' },
         { id: 2, nome: 'Maria Oliveira', idade: 38, genero: 'Feminino', telefone: '(11) 91234-5678', convenio: 'Amil', ultimaConsulta: '15/06/2023', status: 'ativo' },
@@ -29,7 +28,6 @@ export const DataProvider = ({ children }) => {
         { id: 8, nome: 'Fernanda Gomes', idade: 33, genero: 'Feminino', telefone: '(11) 97890-1234', convenio: 'Bradesco', ultimaConsulta: '22/06/2023', status: 'ativo' }
       ]);
 
-      // Agendamentos (amostra)
       setAgendamentos([
         { id: 1, paciente: 'João Silva', medico: 'Dr. Ricardo Souza', especialidade: 'Clínica Geral', data: '05/07/2023', hora: '09:00', status: 'confirmado' },
         { id: 2, paciente: 'Maria Oliveira', medico: 'Dra. Camila Santos', especialidade: 'Cardiologia', data: '06/07/2023', hora: '14:30', status: 'pendente' },
@@ -43,7 +41,6 @@ export const DataProvider = ({ children }) => {
         { id: 10, paciente: 'Maria Oliveira', medico: 'Dra. Camila Santos', especialidade: 'Cardiologia', data: '17/07/2023', hora: '14:00', status: 'confirmado' }
       ]);
 
-      // Medicamentos (amostra)
       setMedicamentos([
         { id: 1, nome: 'Dipirona 500mg', categoria: 'Analgésico', estoque: 120, fornecedor: 'Medley', validade: '12/2024', status: 'disponível' },
         { id: 2, nome: 'Amoxicilina 500mg', categoria: 'Antibiótico', estoque: 85, fornecedor: 'EMS', validade: '10/2024', status: 'disponível' },
@@ -55,7 +52,6 @@ export const DataProvider = ({ children }) => {
         { id: 8, nome: 'Atenolol 50mg', categoria: 'Anti-hipertensivo', estoque: 5, fornecedor: 'EMS', validade: '06/2024', status: 'crítico' }
       ]);
 
-      // Funcionários (amostra)
       setFuncionarios([
         { id: 1, nome: 'Ana Silva', cargo: 'Médica', setor: 'Clínica Geral', dataAdmissao: '10/01/2020', status: 'ativo' },
         { id: 2, nome: 'Carlos Oliveira', cargo: 'Enfermeiro', setor: 'Emergência', dataAdmissao: '15/03/2019', status: 'ativo' },
@@ -67,7 +63,6 @@ export const DataProvider = ({ children }) => {
         { id: 8, nome: 'Ricardo Souza', cargo: 'Fisioterapeuta', setor: 'Reabilitação', dataAdmissao: '25/06/2019', status: 'ativo' }
       ]);
 
-      // Transações (amostra)
       setTransacoes([
         { id: 1, data: '05/07/2023', tipo: 'receita', descricao: 'Consultas médicas', valor: 5200.00 },
         { id: 2, data: '07/07/2023', tipo: 'despesa', descricao: 'Pagamento de fornecedores', valor: 1850.00 },
@@ -83,7 +78,6 @@ export const DataProvider = ({ children }) => {
     }, 1000);
   }, []);
 
-  // --- Operações de Pacientes ---
   const adicionarPaciente = (novoPaciente) => {
     const id = pacientes.length > 0 ? Math.max(...pacientes.map(p => p.id)) + 1 : 1;
     setPacientes([...pacientes, { ...novoPaciente, id, status: 'ativo' }]);
@@ -100,7 +94,6 @@ export const DataProvider = ({ children }) => {
     setPacientes(pacientes.filter(paciente => paciente.id !== id));
   };
 
-  // --- Operações de Agendamentos ---
   const adicionarAgendamento = (novoAgendamento) => {
     const id = agendamentos.length > 0 ? Math.max(...agendamentos.map(a => a.id)) + 1 : 1;
     setAgendamentos([...agendamentos, { ...novoAgendamento, id, status: 'pendente' }]);
@@ -117,7 +110,6 @@ export const DataProvider = ({ children }) => {
     setAgendamentos(agendamentos.filter(agendamento => agendamento.id !== id));
   };
 
-  // --- Operações de Medicamentos ---
   const adicionarMedicamento = (novoMedicamento) => {
     const id = medicamentos.length > 0 ? Math.max(...medicamentos.map(m => m.id)) + 1 : 1;
     const status = novoMedicamento.estoque > 30 ? 'disponível' : novoMedicamento.estoque > 10 ? 'baixo' : 'crítico';
@@ -129,7 +121,7 @@ export const DataProvider = ({ children }) => {
     setMedicamentos(medicamentos.map(medicamento => {
       if (medicamento.id === id) {
         const atualizado = { ...medicamento, ...dadosAtualizados };
-        // Define status automaticamente com base no estoque
+        
         if (atualizado.estoque !== undefined) {
           atualizado.status = atualizado.estoque > 30 ? 'disponível' : atualizado.estoque > 10 ? 'baixo' : 'crítico';
         }
@@ -154,7 +146,6 @@ export const DataProvider = ({ children }) => {
     }));
   };
 
-  // --- Operações de Funcionários ---
   const adicionarFuncionario = (novoFuncionario) => {
     const id = funcionarios.length > 0 ? Math.max(...funcionarios.map(f => f.id)) + 1 : 1;
     setFuncionarios([...funcionarios, { ...novoFuncionario, id, status: 'ativo' }]);
@@ -171,7 +162,6 @@ export const DataProvider = ({ children }) => {
     setFuncionarios(funcionarios.filter(funcionario => funcionario.id !== id));
   };
 
-  // --- Operações de Transações ---
   const adicionarTransacao = (novaTransacao) => {
     const id = transacoes.length > 0 ? Math.max(...transacoes.map(t => t.id)) + 1 : 1;
     setTransacoes([...transacoes, { ...novaTransacao, id }]);
@@ -188,7 +178,6 @@ export const DataProvider = ({ children }) => {
     setTransacoes(transacoes.filter(transacao => transacao.id !== id));
   };
 
-  // --- Estatísticas e relatórios (derivados dos estados) ---
   const obterEstatisticasPacientes = () => {
     return {
       total: pacientes.length,
@@ -268,43 +257,36 @@ export const DataProvider = ({ children }) => {
     };
   };
 
-  // Valor entregue pelo contexto
   const value = {
-    // Dados
+    
     pacientes,
     agendamentos,
     medicamentos,
     funcionarios,
     transacoes,
     loading,
-    
-    // Funções para pacientes
+
     adicionarPaciente,
     atualizarPaciente,
     removerPaciente,
-    
-    // Funções para agendamentos
+
     adicionarAgendamento,
     atualizarAgendamento,
     removerAgendamento,
-    
-    // Funções para medicamentos
+
     adicionarMedicamento,
     atualizarMedicamento,
     removerMedicamento,
     dispensarMedicamento,
-    
-    // Funções para funcionários
+
     adicionarFuncionario,
     atualizarFuncionario,
     removerFuncionario,
-    
-    // Funções para transações
+
     adicionarTransacao,
     atualizarTransacao,
     removerTransacao,
-    
-    // Funções para estatísticas
+
     obterEstatisticasPacientes,
     obterEstatisticasAgendamentos,
     obterEstatisticasMedicamentos,

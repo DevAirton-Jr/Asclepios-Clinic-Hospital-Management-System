@@ -7,7 +7,7 @@ const RecursosHumanos = () => {
   const { funcionarios, loading, adicionarFuncionario, atualizarFuncionario, removerFuncionario } = useContext(DataContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
-  const [modalMode, setModalMode] = useState('view'); // 'view', 'edit', 'add'
+  const [modalMode, setModalMode] = useState('view'); 
   const [currentEmployee, setCurrentEmployee] = useState(null);
   const [formData, setFormData] = useState({
     nome: '',
@@ -19,7 +19,6 @@ const RecursosHumanos = () => {
     telefone: ''
   });
 
-  // Atualiza formData quando currentEmployee muda
   useEffect(() => {
     if (currentEmployee && (modalMode === 'edit' || modalMode === 'view')) {
       setFormData({
@@ -38,7 +37,6 @@ const RecursosHumanos = () => {
     }
   }, [currentEmployee, modalMode]);
 
-  // Filtragem de funcionários com base no termo de busca
   const funcionariosFiltrados = useMemo(() => {
     return funcionarios.filter(funcionario => 
       funcionario.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -47,7 +45,6 @@ const RecursosHumanos = () => {
     );
   }, [funcionarios, searchTerm]);
 
-  // Estatísticas
   const estatisticas = useMemo(() => {
     return {
       totalFuncionarios: funcionarios.length,
@@ -57,7 +54,6 @@ const RecursosHumanos = () => {
     };
   }, [funcionarios]);
 
-  // Handler para mudanças no formulário
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -66,7 +62,6 @@ const RecursosHumanos = () => {
     }));
   };
 
-  // Handlers para ações
   const handleView = (funcionario) => {
     setCurrentEmployee(funcionario);
     setModalMode('view');
@@ -95,7 +90,7 @@ const RecursosHumanos = () => {
     if (modalMode === 'add') {
       adicionarFuncionario({
         ...formData,
-        id: Date.now() // ID temporário
+        id: Date.now() 
       });
     } else if (modalMode === 'edit') {
       atualizarFuncionario(formData);
@@ -103,7 +98,6 @@ const RecursosHumanos = () => {
     setShowModal(false);
   };
 
-  // Renderização de status com cores
   const renderStatus = (status) => {
     switch (status) {
       case 'ativo':
@@ -126,7 +120,7 @@ const RecursosHumanos = () => {
         </div>
       ) : (
         <>
-          {/* Estatísticas */}
+          {}
           <Row className="mb-4">
             <Col md={3}>
               <Card className="h-100 shadow-sm">
@@ -162,7 +156,7 @@ const RecursosHumanos = () => {
             </Col>
           </Row>
 
-          {/* Barra de pesquisa e botão de adicionar */}
+          {}
           <Card className="mb-4 shadow-sm">
             <Card.Body>
               <Row className="align-items-center">
@@ -187,7 +181,7 @@ const RecursosHumanos = () => {
             </Card.Body>
           </Card>
 
-          {/* Tabela de funcionários */}
+          {}
           <Card className="shadow-sm">
             <Card.Header className="bg-white">
               <h5 className="mb-0">Lista de Funcionários</h5>
@@ -232,7 +226,7 @@ const RecursosHumanos = () => {
         </>
       )}
 
-      {/* Modal para adicionar/editar/visualizar funcionário */}
+      {}
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>

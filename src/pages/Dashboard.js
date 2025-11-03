@@ -15,7 +15,6 @@ const Dashboard = () => {
     obterEstatisticasAgendamentos
   } = useData();
 
-  // Dados para os cards do dashboard
   const statsCards = useMemo(() => {
     const estatisticasPacientes = obterEstatisticasPacientes();
     const estatisticasAgendamentos = obterEstatisticasAgendamentos();
@@ -48,7 +47,6 @@ const Dashboard = () => {
     ];
   }, [pacientes, agendamentos, funcionarios, obterEstatisticasPacientes, obterEstatisticasAgendamentos]);
 
-  // Dados para a tabela de pacientes recentes
   const pacientesRecentes = useMemo(() => {
     return pacientes
       .slice(0, 5)
@@ -61,7 +59,6 @@ const Dashboard = () => {
       }));
   }, [pacientes]);
 
-  // Dados para a tabela de consultas agendadas
   const consultasAgendadas = useMemo(() => {
     return agendamentos
       .filter(a => a.status !== 'cancelado')
@@ -86,7 +83,7 @@ const Dashboard = () => {
         </div>
       ) : (
         <>
-          {/* Cards de estatísticas */}
+          {}
           <Row className="g-4 mb-4">
             {statsCards.map((card, index) => (
               <Col md={6} lg={3} key={index}>
@@ -105,7 +102,7 @@ const Dashboard = () => {
             ))}
           </Row>
 
-          {/* Gráficos */}
+          {}
           <Row className="g-4 mb-4">
             <Col lg={6}>
               <Card className="dashboard-card h-100">
@@ -129,7 +126,7 @@ const Dashboard = () => {
             </Col>
           </Row>
 
-          {/* Tabelas */}
+          {}
           <Row className="g-4">
             <Col lg={6}>
               <Card className="dashboard-card h-100">

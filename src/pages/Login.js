@@ -6,8 +6,6 @@ import { FaHospital, FaLock, FaUser } from 'react-icons/fa';
 import clinicalImage from '../assets/images/clinical.jpeg';
 import logo from '../assets/images/logo.png';
 
-// Tela de login: autenticação simulada e navegação pós-login
-// Usa AuthContext para registrar sessão e redireciona para Dashboard
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,20 +15,17 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  // Usuários de demonstração (email/senha)
   const demoUsers = [
     { email: 'medico@hospital.com', password: '123456', nome: 'Dr. Carlos Silva', cargo: 'Médico', setor: 'Cardiologia' },
     { email: 'enfermeira@hospital.com', password: '123456', nome: 'Enfermeira Ana Santos', cargo: 'Enfermeira', setor: 'Emergência' },
     { email: 'admin@hospital.com', password: '123456', nome: 'Admin João Oliveira', cargo: 'Administrador', setor: 'TI' }
   ];
 
-  // Valida credenciais contra a lista de demonstração
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // Simulação de autenticação assíncrona
     setTimeout(() => {
       const user = demoUsers.find(user => user.email === email && user.password === password);
       
@@ -55,7 +50,7 @@ const Login = () => {
         position: 'relative'
       }}
     >
-      {/* Overlay escuro para melhor contraste visual */}
+      {}
       <div 
         style={{
           position: 'absolute',
@@ -81,7 +76,7 @@ const Login = () => {
              >
                <Card.Body className="p-5 text-light">
               <div className="text-center mb-4">
-                {/* Branding atualizada */}
+                {}
                 <img src={logo} alt="Asclepios Clínica" className="mb-3" style={{ height: '64px' }} />
                 <h2 className="fw-bold" style={{ color: '#fff' }}>Asclepios Clínica</h2>
                 <p className="text-light">Sistema de Gestão Hospitalar</p>
@@ -89,7 +84,7 @@ const Login = () => {
 
               {error && <Alert variant="danger">{error}</Alert>}
 
-              {/* Formulário de credenciais */}
+              {}
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <div className="input-group">
@@ -172,7 +167,7 @@ const Login = () => {
                   {loading ? 'Entrando...' : 'Entrar'}
                 </Button>
                 
-                {/* Dicas de acesso para demonstração */}
+                {}
                 <div className="text-center text-muted small">
                   <p>Usuários de demonstração:</p>
                   <p>medico@hospital.com / 123456</p>

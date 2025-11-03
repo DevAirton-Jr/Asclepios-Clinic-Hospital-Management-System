@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { Modal, Form, Button, Row, Col, Image } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
 
-// Componente de perfil do usuário: edição de dados e preferências
-// Sincroniza alterações com AuthContext e persiste via localStorage
 const PerfilUsuario = ({ show, handleClose }) => {
   const { user, updateUserProfile } = useAuth();
-  // Estado local do formulário, inicializado com dados atuais do usuário
   const [formData, setFormData] = useState({
     nome: user?.nome || '',
     email: user?.email || '',
@@ -17,7 +14,6 @@ const PerfilUsuario = ({ show, handleClose }) => {
     avatar: user?.avatar || ''
   });
 
-  // Atualiza campos de texto/select conforme entrada
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -26,14 +22,12 @@ const PerfilUsuario = ({ show, handleClose }) => {
     }));
   };
 
-  // Salva alterações no perfil e fecha o modal
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUserProfile(formData);
     handleClose();
   };
 
-  // Converte imagem para base64 para persistir avatar
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -51,13 +45,11 @@ const PerfilUsuario = ({ show, handleClose }) => {
         <Modal.Title>Personalizar Perfil</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* Formulário de atualização do perfil */}
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="text-center mb-3">
-              {/* Preview do avatar com fallback */}
               <Image 
-                src={formData.avatar || 'data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22150%22 height=%22150%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23e9ecef%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%236c757d%22 font-size=%2224%22>Avatar</text></svg>'}
+                src={formData.avatar || 'data:image/svg+xml;utf8,<svg xmlns=%22http:
                 roundedCircle
                 style={{ width: 120, height: 120, objectFit: 'cover', border: '3px solid #dee2e6' }}
                 alt="Avatar"
