@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { Container, Row, Col, Card, Form, Button, Alert } from 'react-bootstrap';
-import { FaHospital, FaLock, FaUser } from 'react-icons/fa';
+import { FaHospital, FaLock, FaUser, FaInfoCircle } from 'react-icons/fa';
 import clinicalImage from '../assets/images/clinical.jpeg';
 import logo from '../assets/images/logo.png';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,9 +17,7 @@ const Login = () => {
   const navigate = useNavigate();
 
   const demoUsers = [
-    { email: 'medico@hospital.com', password: '123456', nome: 'Dr. Carlos Silva', cargo: 'Médico', setor: 'Cardiologia' },
-    { email: 'enfermeira@hospital.com', password: '123456', nome: 'Enfermeira Ana Santos', cargo: 'Enfermeira', setor: 'Emergência' },
-    { email: 'admin@hospital.com', password: '123456', nome: 'Admin João Oliveira', cargo: 'Administrador', setor: 'TI' }
+    { email: 'admin@hospital.com', password: '123456', nome: 'John Smith', cargo: 'Administrator', setor: 'IT' }
   ];
 
   const handleSubmit = (e) => {
@@ -33,7 +32,7 @@ const Login = () => {
         login(user);
         navigate('/');
       } else {
-        setError('Email ou senha incorretos');
+        setError('Incorrect email or password');
       }
       setLoading(false);
     }, 1000);
@@ -50,7 +49,7 @@ const Login = () => {
         position: 'relative'
       }}
     >
-      {}
+    
       <div 
         style={{
           position: 'absolute',
@@ -76,15 +75,14 @@ const Login = () => {
              >
                <Card.Body className="p-5 text-light">
               <div className="text-center mb-4">
-                {}
-                <img src={logo} alt="Asclepios Clínica" className="mb-3" style={{ height: '64px' }} />
-                <h2 className="fw-bold" style={{ color: '#fff' }}>Asclepios Clínica</h2>
-                <p className="text-light">Sistema de Gestão Hospitalar</p>
+                
+                <img src={logo} alt="Asclepios Clinic" className="mb-3" style={{ height: '64px' }} />
+                <h2 className="fw-bold" style={{ color: '#fff' }}>Asclepios Clinic</h2>
+                <p className="text-light">Hospital Management System</p>
               </div>
 
               {error && <Alert variant="danger">{error}</Alert>}
 
-              {}
               <Form onSubmit={handleSubmit}>
                 <Form.Group className="mb-3">
                   <div className="input-group">
@@ -128,7 +126,7 @@ const Login = () => {
                     </span>
                     <Form.Control
                       type="password"
-                      placeholder="Senha"
+                      placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
@@ -164,17 +162,31 @@ const Login = () => {
                     e.target.style.transform = 'translateY(0)';
                   }}
                 >
-                  {loading ? 'Entrando...' : 'Entrar'}
+                  {loading ? 'Logging in...' : 'Login'}
                 </Button>
-                
-                {}
-                <div className="text-center text-muted small">
-                  <p>Usuários de demonstração:</p>
-                  <p>medico@hospital.com / 123456</p>
-                  <p>enfermeira@hospital.com / 123456</p>
-                  <p>admin@hospital.com / 123456</p>
-                </div>
               </Form>
+              
+              <div 
+                className="demo-info-box position-absolute"
+                style={{
+                  bottom: '20px',
+                  right: '20px',
+                  backgroundColor: 'rgba(13, 110, 253, 0.2)',
+                  padding: '10px 15px',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(13, 110, 253, 0.3)',
+                  maxWidth: '250px'
+                }}
+              >
+                <div className="d-flex align-items-center mb-2">
+                  <FaInfoCircle className="text-info me-2" />
+                  <span className="fw-bold">Demo Account</span>
+                </div>
+                <div className="small">
+                  <p className="mb-1">Email: admin@hospital.com</p>
+                  <p className="mb-0">Password: 123456</p>
+                </div>
+              </div>
             </Card.Body>
           </Card>
         </Col>

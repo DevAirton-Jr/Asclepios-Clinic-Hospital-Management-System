@@ -35,7 +35,6 @@ const Layout = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      {}
       <Navbar bg="primary" variant="dark" expand="lg" className="py-2">
         <Container fluid>
           <Button 
@@ -46,7 +45,7 @@ const Layout = () => {
             <FaBars />
           </Button>
           <Navbar.Brand className="fw-bold">
-            Clínica Asclepios
+            Asclepios Clinic
           </Navbar.Brand>
           <div className="ms-auto d-flex align-items-center">
             <div className="text-light me-3 d-none d-md-block">
@@ -60,35 +59,30 @@ const Layout = () => {
               </div>
               <div className="small">{user?.cargo} - {user?.setor}</div>
             </div>
-            {}
             <Button variant="outline-light" className="me-2" onClick={handlePerfilClick}>
               <FaCog className="me-2" />
-              <span className="d-none d-md-inline">Perfil</span>
+              <span className="d-none d-md-inline">Profile</span>
             </Button>
             <Button variant="outline-light" onClick={handleLogout}>
               <FaSignOutAlt className="me-2" />
-              <span className="d-none d-md-inline">Sair</span>
+              <span className="d-none d-md-inline">Logout</span>
             </Button>
           </div>
         </Container>
       </Navbar>
 
-      {}
       <EVAChat show={showEVAModal} handleClose={() => setShowEVAModal(false)} />
 
-      {}
       <PerfilUsuario 
         show={showPerfilModal} 
         handleClose={() => setShowPerfilModal(false)} 
       />
       
       <div className="d-flex flex-grow-1">
-        {}
         <div className="bg-dark text-white d-none d-lg-flex flex-column" style={{ width: '250px', minHeight: 'calc(100vh - 56px)' }}>
           <SidebarContent />
         </div>
 
-        {}
         <Offcanvas show={showSidebar} onHide={closeSidebar} className="bg-dark text-white" style={{ width: '250px' }}>
           <Offcanvas.Header closeButton closeVariant="white">
             <Offcanvas.Title className="text-white">Menu</Offcanvas.Title>
@@ -106,7 +100,6 @@ const Layout = () => {
         </div>
       </div>
 
-      {}
       <Button 
         onClick={handleEVAClick}
         variant="primary"
@@ -119,8 +112,8 @@ const Layout = () => {
           height: '56px',
           zIndex: 1050,
         }}
-        aria-label="Abrir EVA"
-        title="Abrir EVA"
+        aria-label="Open EVA"
+        title="Open EVA"
       >
         <FaRobot size={22} />
       </Button>
@@ -131,12 +124,12 @@ const Layout = () => {
 const SidebarContent = ({ onClick }) => {
   const menuItems = [
     { path: '/', icon: <FaHome />, label: 'Dashboard' },
-    { path: '/pacientes', icon: <FaUserInjured />, label: 'Pacientes' },
-    { path: '/agendamentos', icon: <FaCalendarAlt />, label: 'Agendamentos' },
-    { path: '/farmacia', icon: <FaPills />, label: 'Farmácia' },
-    { path: '/rh', icon: <FaUsers />, label: 'Recursos Humanos' },
-    { path: '/financeiro', icon: <FaMoneyBillWave />, label: 'Financeiro' },
-    { path: '/relatorios', icon: <FaChartBar />, label: 'Relatórios' },
+    { path: '/pacientes', icon: <FaUserInjured />, label: 'Patients' },
+    { path: '/agendamentos', icon: <FaCalendarAlt />, label: 'Appointments' },
+    { path: '/farmacia', icon: <FaPills />, label: 'Pharmacy' },
+    { path: '/rh', icon: <FaUsers />, label: 'Human Resources' },
+    { path: '/financeiro', icon: <FaMoneyBillWave />, label: 'Finance' },
+    { path: '/relatorios', icon: <FaChartBar />, label: 'Reports' },
   ];
 
   return (

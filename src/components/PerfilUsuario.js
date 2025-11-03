@@ -42,7 +42,7 @@ const PerfilUsuario = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>Personalizar Perfil</Modal.Title>
+        <Modal.Title>User Profile</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
