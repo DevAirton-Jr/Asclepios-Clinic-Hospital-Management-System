@@ -97,21 +97,6 @@ EVA (Enhanced Virtual Assistant) is a built-in assistant for quick navigation an
 - **Persistence:** Managed through `updateUserProfile` in `AuthContext` (localStorage)
 - **Header:** Avatar displayed next to the user’s name
 
-src/
-├── components/
-│   ├── EVAChat.js          # EVA chatbot modal
-│   ├── Layout.js           # Main layout with sidebar & header
-│   └── PerfilUsuario.js    # User profile modal (avatar upload)
-├── context/
-│   ├── AuthContext.js      # Simulated auth & profile state
-│   └── DataContext.js      # Mocked data for modules
-├── pages/
-│   ├── Login.js            # Login screen
-│   ├── Dashboard.js        # Main overview page
-│   └── Financeiro.js       # Finance module
-└── assets/
-    └── css/styles.css      # Global styling
-
 
 ## Conventions
 - **Language:** default English; optional Portuguese via language selector
