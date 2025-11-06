@@ -1,26 +1,33 @@
-# Asclepios Clinic — Hospital Management System
+<h1 align="center">🏥 Asclepios Clinic — Hospital Management System</h1>
 
-![React](https://img.shields.io/badge/React-18.2.0-20232A?logo=react&logoColor=61DAFB)
-![React Router](https://img.shields.io/badge/React_Router-6.26-CA4245?logo=reactrouter&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-563D7C?logo=bootstrap&logoColor=white)
-![React Bootstrap](https://img.shields.io/badge/React_Bootstrap-2.10-38BDF8?logo=react&logoColor=white)
-![Chart.js](https://img.shields.io/badge/Chart.js-4.4.3-F5788D?logo=chartdotjs&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-16+-339933?logo=nodedotjs&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-blue.svg)
-![Status](https://img.shields.io/badge/Status-In_Development-yellow)
-![Platform](https://img.shields.io/badge/Platform-Web-lightgrey)
+<p align="center">
+Modern hospital management interface built with <strong>React</strong>, featuring modules for Patients, Appointments, Pharmacy, Finance, Reports, and an integrated virtual assistant (EVA).
+</p>
 
-Modern hospital management interface with modules for Patients, Appointments, Pharmacy, Finance, Reports, and an integrated virtual assistant (EVA).  
-This repository is 100% frontend (React); data and authentication are simulated via Context API and `localStorage`.
+<p align="center">
+  <img alt="React" src="https://img.shields.io/badge/React-18.2.0-20232A?logo=react&logoColor=61DAFB">
+  <img alt="React Router" src="https://img.shields.io/badge/React_Router-6.26-CA4245?logo=reactrouter&logoColor=white">
+  <img alt="Bootstrap" src="https://img.shields.io/badge/Bootstrap-5.3-563D7C?logo=bootstrap&logoColor=white">
+  <img alt="React Bootstrap" src="https://img.shields.io/badge/React_Bootstrap-2.10-38BDF8?logo=bootstrap&logoColor=white">
+  <img alt="Chart.js" src="https://img.shields.io/badge/Chart.js-4.4.3-F5788D?logo=chartdotjs&logoColor=white">
+  <img alt="Node.js" src="https://img.shields.io/badge/Node.js-16+-339933?logo=nodedotjs&logoColor=white">
+  <img alt="License" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  <img alt="Status" src="https://img.shields.io/badge/Status-In_Development-yellow">
+  <img alt="Platform" src="https://img.shields.io/badge/Platform-Web-lightgrey">
+</p>
 
-![UI Preview](public/logo512.png)
+---
 
-## Overview
-- React SPA with Context API (global state)
-- UI built with Bootstrap and React-Bootstrap
-- Navigation using React Router
-- Charts powered by Chart.js (where applicable)
-- No backend is included in this repository (planned for a future phase)
+
+## 🩺 Overview
+Asclepios Clinic is a modern **hospital management system** designed to streamline clinic operations through an intuitive interface and simulated backend.
+
+- Built as a **React Single Page Application (SPA)** with Context API for state management  
+- UI powered by **Bootstrap** and **React-Bootstrap**  
+- Routing handled by **React Router v6**  
+- Visual data represented using **Chart.js**  
+- Authentication and data simulated through **localStorage**
+
 
 ## Features
 - Simulated staff authentication (login/logout)
@@ -33,10 +40,13 @@ This repository is 100% frontend (React); data and authentication are simulated 
 - EVA chatbot for shortcuts and quick queries
 - Language switcher (EN/PT) — default: English
 
-## Design
-- Glassmorphism theme with translucent surfaces, blur and soft shadows
-- Dark blue background gradient and blue-accent highlights
-- Neutralized primary variants; consistent dark/secondary actions
+## 🎨 Design & UI
+- **Theme:** Glassmorphism with translucency, blur, and layered shadows  
+- **Palette:** Deep blue gradient with cyan highlights  
+- **Layout:** Sidebar navigation with responsive header  
+- **Typography:** Sans-serif, clean, and accessible  
+- **Focus:** Readability and UX clarity across modules
+
 
 ## Installation and Development
 - **Prerequisites:** Node 16+ and npm 8+
@@ -54,31 +64,27 @@ Integrated assistant for navigation shortcuts and quick queries.
 - **Interface:** chat modal with message history and input field
 - **Data:** `DataContext` (simulated content) and `AuthContext` (current user)
 
-### EVA Commands (Updated 05.11)
-- **Navigation (EN):** `open patients`, `open appointments`, `open pharmacy`, `open finance`, `open reports`, `open dashboard`
-- **Navigation (PT):** `abrir pacientes`, `abrir agendamentos`, `abrir farmácia`, `abrir financeiro`, `abrir relatórios`, `abrir painel`
-- **Queries (EN):** `how many patients`, `how many appointments`, `how many staff`, `total revenue`, `total expenses`, `find patient <name>`
-- **Queries (PT):** `quantos pacientes`, `quantos agendamentos`, `quantos funcionários`, `receita total`, `despesas totais`, `buscar paciente <nome>`
-- **Preferences (EN):** `set default section patients`, `open default section`, `set favorite specialty cardiology`, `show preferences`, `clear memory`
-- **Preferences (PT):** `definir seção padrão pacientes`, `abrir seção padrão`, `definir especialidade favorita cardiologia`, `mostrar preferências`, `limpar memória`
-- **Reminders (EN):** `add reminder call patient João`, `show reminders`, `remove reminder 1`, `clear reminders`
-- **Reminders (PT):** `adicionar lembrete pagar fornecedor`, `mostrar lembretes`, `remover lembrete 1`, `limpar lembretes`
-- **Summary:** EN — `summary`, `daily summary`, `clinic summary`; PT — `resumo`, `resumo diário`, `resumo do dia`
-- **Small talk:** EN — `good morning`, `hi`, `how are you`; PT — `bom dia`, `oi`, `como vai`
-- **Help:** EN — `help` or `commands`; PT — `ajuda` or `comandos`
+## 🤖 EVA Chatbot
+EVA (Enhanced Virtual Assistant) is a built-in assistant for quick navigation and data queries.
 
-**Notes:**
-- EVA maintains per-user memory (history and preferences) in `localStorage`, keyed by user.
-- Currency is formatted as `BRL` (Brazilian Real) using the `en-US` locale for consistency.
+| Capability | Example (EN) | Example (PT) |
+|-------------|--------------|--------------|
+| **Navigation** | `open patients` | `abrir pacientes` |
+| **Data Queries** | `how many appointments` | `quantos agendamentos` |
+| **Reminders** | `add reminder call Dr. Silva` | `adicionar lembrete pagar fornecedor` |
+| **Preferences** | `set default section finance` | `definir seção padrão financeiro` |
+| **Summaries** | `daily summary` | `resumo diário` |
+| **Help / Small Talk** | `help`, `good morning` | `ajuda`, `bom dia` |
+
+🧠 EVA keeps a per-user memory (history and preferences) in `localStorage` and supports both English and Portuguese commands.
 
 ## Screenshots
+<img width="1870" height="950" alt="image" src="https://github.com/user-attachments/assets/c7623ecc-b6f1-4e0d-9f1c-cc75248275fa" />
+<img width="1857" height="949" alt="image" src="https://github.com/user-attachments/assets/f85f68cb-0070-4bcf-966b-ef513f1d9b0c" />
+<img width="1854" height="947" alt="image" src="https://github.com/user-attachments/assets/22b11f15-41dc-4b7e-adf0-5d772e6a8e3f" />
+<img width="1868" height="949" alt="image" src="https://github.com/user-attachments/assets/7b2f3e8f-33a1-4776-8c3c-717ff5dd4abc" />
+<img width="1869" height="950" alt="image" src="https://github.com/user-attachments/assets/3b6e0d84-f6c3-4618-ac44-2816be3d2b60" />
 
-> Replace these with actual screenshots of the UI later.
-
-<p>
-  <img alt="Dashboard" src="public/logo192.png" height="96" />
-  <img alt="Login" src="public/logo512.png" height="96" />
-</p>
 
 ## User Profile (Avatar)
 - **Upload:** In the “Profile” modal, choose an image (`accept="image/*"`)
@@ -86,13 +92,21 @@ Integrated assistant for navigation shortcuts and quick queries.
 - **Persistence:** Managed through `updateUserProfile` in `AuthContext` (localStorage)
 - **Header:** Avatar displayed next to the user’s name
 
-## Project Structure
-- `src/components/EVAChat.js` — chatbot modal and intents
-- `src/components/Layout.js` — header, sidebar, and floating EVA button
-- `src/components/PerfilUsuario.js` — profile modal with avatar upload
-- `src/pages/Login.js` — login screen with modern design
-- `src/context/AuthContext.js` — authentication and profile (localStorage)
-- `src/context/DataContext.js` — simulated data and operations
+src/
+├── components/
+│   ├── EVAChat.js          # EVA chatbot modal
+│   ├── Layout.js           # Main layout with sidebar & header
+│   └── PerfilUsuario.js    # User profile modal (avatar upload)
+├── context/
+│   ├── AuthContext.js      # Simulated auth & profile state
+│   └── DataContext.js      # Mocked data for modules
+├── pages/
+│   ├── Login.js            # Login screen
+│   ├── Dashboard.js        # Main overview page
+│   └── Financeiro.js       # Finance module
+└── assets/
+    └── css/styles.css      # Global styling
+
 
 ## Conventions
 - **Language:** default English; optional Portuguese via language selector
@@ -108,5 +122,5 @@ Integrated assistant for navigation shortcuts and quick queries.
 
 ## Scripts
 - `npm start` — development server
-- `npm build` — production build
+- `npm run build` — production build
 - `npm test` — tests (if applicable)
