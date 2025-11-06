@@ -19,7 +19,7 @@ Modern hospital management interface built with <strong>React</strong>, featurin
 ---
 
 <p align="center">
-  🔗 <a href="https://asclepios-clinic.netlify.app/login)" target="_blank"><strong>🌐 Live Demo — View Deployment</strong></a>
+  🔗 <a href="https://asclepios-clinic.netlify.app/login" target="_blank"><strong>🌐 Live Demo — View Deployment</strong></a>
 </p>
 
 
