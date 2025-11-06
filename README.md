@@ -1,14 +1,10 @@
 # Asclepios Clinic — Hospital Management System
 
 ![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![React%20Router](https://img.shields.io/badge/React%20Router-6-CA4245?logo=react-router&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
 ![React%20Bootstrap](https://img.shields.io/badge/React%20Bootstrap-2-41B4E6?logo=react&logoColor=white)
-![React%20Router](https://img.shields.io/badge/React%20Router-6-CA4245?logo=react-router&logoColor=white)
 ![Chart.js](https://img.shields.io/badge/Chart.js-4-F5788D?logo=chart.js&logoColor=white)
-![Context%20API](https://img.shields.io/badge/Context%20API-Global%20State-2E3A59)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black)
-![ESLint](https://img.shields.io/badge/ESLint-Enabled-4B32C3?logo=eslint&logoColor=white)
-![PRs%20Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen)
 
 Modern hospital management interface with modules for Patients, Appointments, Pharmacy, Finance, Reports, and an integrated virtual assistant (EVA).  
 This repository is 100% frontend (React); data and authentication are simulated via Context API and `localStorage`.
