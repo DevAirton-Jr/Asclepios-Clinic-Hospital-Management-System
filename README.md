@@ -1,7 +1,19 @@
 # Asclepios Clinic — Hospital Management System
 
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
+![React%20Bootstrap](https://img.shields.io/badge/React%20Bootstrap-2-41B4E6?logo=react&logoColor=white)
+![React%20Router](https://img.shields.io/badge/React%20Router-6-CA4245?logo=react-router&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-4-F5788D?logo=chart.js&logoColor=white)
+![Context%20API](https://img.shields.io/badge/Context%20API-Global%20State-2E3A59)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES2022-F7DF1E?logo=javascript&logoColor=black)
+![ESLint](https://img.shields.io/badge/ESLint-Enabled-4B32C3?logo=eslint&logoColor=white)
+![PRs%20Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen)
+
 Modern hospital management interface with modules for Patients, Appointments, Pharmacy, Finance, Reports, and an integrated virtual assistant (EVA).  
 This repository is 100% frontend (React); data and authentication are simulated via Context API and `localStorage`.
+
+![UI Preview](public/logo512.png)
 
 ## Overview
 - React SPA with Context API (global state)
@@ -21,10 +33,15 @@ This repository is 100% frontend (React); data and authentication are simulated 
 - EVA chatbot for shortcuts and quick queries
 - Language switcher (EN/PT) — default: English
 
+## Design
+- Glassmorphism theme with translucent surfaces, blur and soft shadows
+- Dark blue background gradient and blue-accent highlights
+- Neutralized primary variants; consistent dark/secondary actions
+
 ## Installation and Development
 - **Prerequisites:** Node 16+ and npm 8+
 - **Install dependencies:** `npm install`
-- **Start development:** `npm start` (default port `3000`; in some environments, `3001`)
+- **Start development:** `npm start` (default port `3000`). If you prefer a fixed port: PowerShell `\` `$env:PORT=3011; npm start` or CMD `\` `set PORT=3011 && npm start`.
 - **Manual tests:**
   - Login (background, logo, contrast)
   - EVA (open, send `help`, navigation, and queries)
@@ -54,6 +71,15 @@ Integrated assistant for navigation shortcuts and quick queries.
 - EVA maintains per-user memory (history and preferences) in `localStorage`, keyed by user.
 - Currency is formatted as `BRL` (Brazilian Real) using the `en-US` locale for consistency.
 
+## Screenshots
+
+> Replace these with actual screenshots of the UI later.
+
+<p>
+  <img alt="Dashboard" src="public/logo192.png" height="96" />
+  <img alt="Login" src="public/logo512.png" height="96" />
+</p>
+
 ## User Profile (Avatar)
 - **Upload:** In the “Profile” modal, choose an image (`accept="image/*"`)
 - **Preview:** Circular display shown before saving
@@ -75,7 +101,7 @@ Integrated assistant for navigation shortcuts and quick queries.
 - **Assets:** images in `src/assets/images/`
 
 ## Language Toggle (EN/PT)
-- **Location:** top navigation bar — small `EN/PT` selector
+**Location:** User Settings (Profile modal)
 - **Persistence:** selection saved in `localStorage` (`lang`)
 - **Default:** English (`en`)
 - **Translated items:** header actions (Profile, Logout), sidebar menu (Dashboard, Patients, Appointments, Pharmacy, HR, Finance, Reports), EVA button tooltip
