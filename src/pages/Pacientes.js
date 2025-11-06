@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table, Button, Form, Modal, Nav, Tab, Spinne
 import { FaUserPlus, FaSearch, FaEdit, FaTrash, FaFileMedical, FaHistory } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
 
-const Pacientes = () => {
+const Patients = () => {
   const { 
     pacientes, 
     loading, 
@@ -102,14 +102,14 @@ const Pacientes = () => {
 
   return (
     <Container fluid className="pacientes-page fade-in">
-      <h2 className="mb-4">Gerenciamento de Pacientes</h2>
+      <h2 className="mb-4">Patient Management</h2>
       
       {loading ? (
         <div className="text-center p-5">
-          <Spinner animation="border" role="status">
-            <span className="visually-hidden">Carregando...</span>
+          <Spinner animation="border" role="status" variant="secondary">
+            <span className="visually-hidden">Loading...</span>
           </Spinner>
-          <p className="mt-2">Carregando dados dos pacientes...</p>
+          <p className="mt-2">Loading patient data...</p>
         </div>
       ) : (
         <>
@@ -119,37 +119,37 @@ const Pacientes = () => {
               <div className="d-flex">
                 <Form.Control
                   type="text"
-                  placeholder="Buscar por nome ou CPF..."
+                  placeholder="Search by name or CPF..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="me-2"
                 />
-                <Button variant="outline-primary">
-                  <FaSearch /> Buscar
+                <Button variant="outline-dark">
+                  <FaSearch /> Search
                 </Button>
               </div>
             </Col>
             <Col md={6} className="text-md-end">
-              <Button variant="primary" onClick={handleAddPatient}>
-                <FaUserPlus className="me-2" /> Novo Paciente
+              <Button variant="dark" onClick={handleAddPatient}>
+                <FaUserPlus className="me-2" /> New Patient
               </Button>
             </Col>
           </Row>
       
       {}
-      <Card className="mb-4">
+      <Card className="mb-4 glass-card">
         <Card.Body>
           <div className="table-responsive">
             <Table hover>
               <thead>
                 <tr>
-                  <th>Nome</th>
-                  <th>Idade</th>
-                  <th>Gênero</th>
-                  <th>Telefone</th>
-                  <th>Convênio</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>Phone</th>
+                  <th>Health Plan</th>
                   <th>Status</th>
-                  <th>Ações</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -166,11 +166,11 @@ const Pacientes = () => {
                       </span>
                     </td>
                     <td>
-                      <Button variant="outline-primary" size="sm" className="me-1" onClick={() => handleEditPatient(paciente)}>
-                        <FaEdit /> Editar
+                      <Button variant="outline-dark" size="sm" className="me-1" onClick={() => handleEditPatient(paciente)}>
+                        <FaEdit /> Edit
                       </Button>
                       <Button variant="outline-danger" size="sm" onClick={() => handleDeletePatient(paciente.id)}>
-                        <FaTrash /> Excluir
+                        <FaTrash /> Delete
                       </Button>
                     </td>
                   </tr>
@@ -186,7 +186,7 @@ const Pacientes = () => {
       {}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
         <Modal.Header closeButton>
-          <Modal.Title>{modalMode === 'add' ? 'Adicionar Novo Paciente' : 'Editar Paciente'}</Modal.Title>
+          <Modal.Title>{modalMode === 'add' ? 'Add New Patient' : 'Edit Patient'}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSavePatient}>
@@ -253,8 +253,8 @@ const Pacientes = () => {
               <Button variant="secondary" className="me-2" onClick={() => setShowModal(false)}>
                 Cancelar
               </Button>
-              <Button variant="primary" type="submit">
-                Salvar
+              <Button variant="dark" type="submit">
+                Save
               </Button>
             </div>
           </Form>
@@ -343,13 +343,13 @@ const Pacientes = () => {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={() => setShowProntuario(false)}>
-            Fechar
-          </Button>
+            <Button variant="dark" onClick={() => setShowProntuario(false)}>
+              Close
+            </Button>
         </Modal.Footer>
       </Modal>
     </Container>
   );
 };
 
-export default Pacientes;
+export default Patients;

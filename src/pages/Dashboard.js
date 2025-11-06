@@ -7,12 +7,12 @@ import { useData } from '../context/DataContext';
 
 const Dashboard = () => {
   const { 
-    pacientes, 
-    agendamentos, 
-    funcionarios,
+    patients: pacientes, 
+    appointments: agendamentos, 
+    staff: funcionarios,
     loading,
-    obterEstatisticasPacientes,
-    obterEstatisticasAgendamentos
+    getPatientStatistics: obterEstatisticasPacientes,
+    getAppointmentStatistics: obterEstatisticasAgendamentos
   } = useData();
 
   const statsCards = useMemo(() => {
@@ -21,25 +21,25 @@ const Dashboard = () => {
     
     return [
       { 
-        title: 'Pacientes Ativos', 
+        title: 'Active Patients', 
         value: estatisticasPacientes.ativos, 
         icon: <FaUserInjured />, 
         color: 'primary' 
       },
       { 
-        title: 'Consultas Hoje', 
+        title: 'Today\'s Appointments', 
         value: agendamentos.filter(a => a.data === '05/07/2023').length, 
         icon: <FaCalendarAlt />, 
         color: 'success' 
       },
       { 
-        title: 'Taxa de Ocupação', 
+        title: 'Occupancy Rate', 
         value: '78%', 
         icon: <FaBed />, 
         color: 'warning' 
       },
       { 
-        title: 'Médicos Disponíveis', 
+        title: 'Available Doctors', 
         value: funcionarios.filter(f => f.cargo === 'Médico' && f.status === 'ativo').length, 
         icon: <FaUserMd />, 
         color: 'info' 
@@ -55,7 +55,7 @@ const Dashboard = () => {
         nome: p.nome,
         idade: p.idade,
         setor: p.convenio,
-        status: p.status === 'ativo' ? 'Em tratamento' : 'Inativo'
+        status: p.status === 'ativo' ? 'In treatment' : 'Inactive'
       }));
   }, [pacientes]);
 
@@ -77,9 +77,9 @@ const Dashboard = () => {
       {loading ? (
         <div className="text-center p-5">
           <Spinner animation="border" role="status">
-            <span className="visually-hidden">Carregando...</span>
+            <span className="visually-hidden">Loading...</span>
           </Spinner>
-          <p className="mt-2">Carregando dados do sistema...</p>
+          <p className="mt-2">Loading system data...</p>
         </div>
       ) : (
         <>

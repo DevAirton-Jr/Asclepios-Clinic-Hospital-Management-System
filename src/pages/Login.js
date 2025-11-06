@@ -49,7 +49,6 @@ const Login = () => {
         position: 'relative'
       }}
     >
-    
       <div 
         style={{
           position: 'absolute',
@@ -166,32 +165,36 @@ const Login = () => {
                 </Button>
               </Form>
               
-              <div 
-                className="demo-info-box position-absolute"
-                style={{
-                  bottom: '20px',
-                  right: '20px',
-                  backgroundColor: 'rgba(13, 110, 253, 0.2)',
-                  padding: '10px 15px',
-                  borderRadius: '10px',
-                  border: '1px solid rgba(13, 110, 253, 0.3)',
-                  maxWidth: '250px'
-                }}
-              >
-                <div className="d-flex align-items-center mb-2">
-                  <FaInfoCircle className="text-info me-2" />
-                  <span className="fw-bold">Demo Account</span>
-                </div>
-                <div className="small">
-                  <p className="mb-1">Email: admin@hospital.com</p>
-                  <p className="mb-0">Password: 123456</p>
-                </div>
-              </div>
+              {/* Demo box moved to bottom of page, outside the login card */}
             </Card.Body>
           </Card>
         </Col>
       </Row>
-    </Container>
+      
+      {/* Demo account info box positioned at the bottom of the page */}
+      <div 
+        className="demo-info-box position-fixed"
+        style={{
+          bottom: '20px',
+          right: '20px',
+          backgroundColor: 'rgba(13, 110, 253, 0.2)',
+          padding: '10px 15px',
+          borderRadius: '10px',
+          border: '1px solid rgba(13, 110, 253, 0.3)',
+          maxWidth: '250px',
+          zIndex: 1000
+        }}
+      >
+        <div className="d-flex align-items-center mb-2">
+          <FaInfoCircle className="text-info me-2" />
+          <span className="fw-bold">Demo Account</span>
+        </div>
+        <div className="small">
+          <p className="mb-1">Email: admin@hospital.com</p>
+          <p className="mb-0">Password: 123456</p>
+        </div>
+      </div>
+      </Container>
     </div>
   );
 };

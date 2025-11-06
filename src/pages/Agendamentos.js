@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table, Button, Badge, Modal, Form, Spinner }
 import { useData } from '../context/DataContext';
 import { FaEye, FaEdit, FaTrash, FaCalendarPlus } from 'react-icons/fa';
 
-const Agendamentos = () => {
+const Appointments = () => {
   const { agendamentos, pacientes, adicionarAgendamento, atualizarAgendamento, removerAgendamento, loading } = useData();
   const [showModal, setShowModal] = useState(false);
   const [modalMode, setModalMode] = useState('add');
@@ -132,32 +132,32 @@ const Agendamentos = () => {
     <Container fluid className="p-4">
       {loading ? (
         <div className="text-center my-5">
-          <Spinner animation="border" role="status" variant="primary" />
-          <p className="mt-3">Carregando agendamentos...</p>
+          <Spinner animation="border" role="status" variant="secondary" />
+          <p className="mt-3">Loading appointments...</p>
         </div>
       ) : (
         <>
           <Row className="mb-4">
             <Col>
-              <h2 className="mb-4">Agendamentos</h2>
-              <Card>
+              <h2 className="mb-4">Appointments</h2>
+              <Card className="glass-card">
                 <Card.Header className="d-flex justify-content-between align-items-center">
-                  <span>Lista de Agendamentos</span>
-                  <Button variant="primary" onClick={handleNewAppointment}>
-                    <FaCalendarPlus className="me-1" /> Novo Agendamento
+                  <span>Appointment List</span>
+                  <Button variant="dark" onClick={handleNewAppointment}>
+                    <FaCalendarPlus className="me-1" /> New Appointment
                   </Button>
                 </Card.Header>
                 <Card.Body>
                   <Table responsive hover>
                     <thead>
                       <tr>
-                        <th>Paciente</th>
-                        <th>Médico</th>
-                        <th>Especialidade</th>
-                        <th>Data</th>
-                        <th>Hora</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Specialty</th>
+                        <th>Date</th>
+                        <th>Time</th>
                         <th>Status</th>
-                        <th>Ações</th>
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -305,10 +305,10 @@ const Agendamentos = () => {
             {modalMode !== 'view' && (
               <div className="d-flex justify-content-end">
                 <Button variant="secondary" className="me-2" onClick={() => setShowModal(false)}>
-                  Cancelar
+                  Cancel
                 </Button>
-                <Button variant="primary" type="submit">
-                  Salvar
+                <Button variant="dark" type="submit">
+                  Save
                 </Button>
               </div>
             )}
@@ -326,4 +326,4 @@ const Agendamentos = () => {
   );
 };
 
-export default Agendamentos;
+export default Appointments;

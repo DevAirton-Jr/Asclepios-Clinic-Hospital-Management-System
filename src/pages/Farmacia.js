@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table, Button, Badge, Form, InputGroup, Moda
 import { FaSearch, FaPills, FaPlus, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import { useData } from '../context/DataContext';
 
-const Farmacia = () => {
+const Pharmacy = () => {
   const { medicamentos, pacientes, adicionarMedicamento, atualizarMedicamento, removerMedicamento, loading } = useData();
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -140,7 +140,7 @@ const Farmacia = () => {
     <Container fluid className="p-4">
       {loading ? (
         <div className="text-center my-5">
-          <Spinner animation="border" role="status" variant="primary" />
+          <Spinner animation="border" role="status" variant="secondary" />
           <p className="mt-3">Carregando dados da farmácia...</p>
         </div>
       ) : (
@@ -193,9 +193,9 @@ const Farmacia = () => {
           </Row>
           
           {}
-          <Card className="mb-4">
+          <Card className="mb-4 glass-card">
             <Card.Header className="d-flex justify-content-between align-items-center">
-              <span>Estoque de Medicamentos</span>
+              <span>Medication Inventory</span>
               <div className="d-flex">
                 <InputGroup className="me-2" style={{ width: '300px' }}>
                   <InputGroup.Text>
@@ -207,7 +207,7 @@ const Farmacia = () => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
                 </InputGroup>
-                <Button variant="primary" onClick={handleNovoMedicamento}>
+                <Button variant="dark" onClick={handleNovoMedicamento}>
                   <FaPlus className="me-1" /> Novo Medicamento
                 </Button>
               </div>
@@ -216,12 +216,12 @@ const Farmacia = () => {
               <Table responsive hover>
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Categoria</th>
-                    <th>Estoque</th>
-                    <th>Validade</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Stock</th>
+                    <th>Expiry</th>
                     <th>Status</th>
-                    <th>Ações</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -398,9 +398,9 @@ const Farmacia = () => {
                 <Button variant="secondary" className="me-2" onClick={() => setShowModal(false)}>
                   Cancelar
                 </Button>
-                <Button variant="primary" type="submit">
-                  Salvar
-                </Button>
+              <Button variant="dark" type="submit">
+                Save
+              </Button>
               </div>
             )}
             {modalMode === 'view' && (
@@ -417,4 +417,4 @@ const Farmacia = () => {
   );
 };
 
-export default Farmacia;
+export default Pharmacy;

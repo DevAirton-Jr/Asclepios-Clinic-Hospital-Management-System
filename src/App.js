@@ -5,12 +5,12 @@ import { DataProvider } from './context/DataContext';
 
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
-import Pacientes from './pages/Pacientes';
-import Agendamentos from './pages/Agendamentos';
-import Farmacia from './pages/Farmacia';
-import RecursosHumanos from './pages/RecursosHumanos';
-import Financeiro from './pages/Financeiro';
-import Relatorios from './pages/Relatorios';
+import Patients from './pages/Pacientes';
+import Appointments from './pages/Agendamentos';
+import Pharmacy from './pages/Farmacia';
+import HumanResources from './pages/RecursosHumanos';
+import Finance from './pages/Financeiro';
+import Reports from './pages/Relatorios';
 
 import Layout from './components/Layout';
 
@@ -30,12 +30,12 @@ function App() {
           </PrivateRoute>
         }>
           <Route index element={<Dashboard />} />
-          <Route path="pacientes" element={<Pacientes />} />
-          <Route path="agendamentos" element={<Agendamentos />} />
-          <Route path="farmacia" element={<Farmacia />} />
-          <Route path="rh" element={<RecursosHumanos />} />
-          <Route path="financeiro" element={<Financeiro />} />
-          <Route path="relatorios" element={<Relatorios />} />
+          <Route path="pacientes" element={<Patients />} />
+          <Route path="agendamentos" element={<Appointments />} />
+          <Route path="farmacia" element={<Pharmacy />} />
+          <Route path="rh" element={<HumanResources />} />
+          <Route path="financeiro" element={<Finance />} />
+          <Route path="relatorios" element={<Reports />} />
         </Route>
       </Routes>
     </DataProvider>

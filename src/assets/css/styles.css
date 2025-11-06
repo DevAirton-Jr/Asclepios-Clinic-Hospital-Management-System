@@ -1,6 +1,78 @@
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #0b2447 0%, #19376d 50%, #1f3b73 100%);
+  min-height: 100vh;
+  color: #e6eef9;
+}
+
+/* Glassmorphism base styles */
+:root {
+  --blue-500: #0d6efd;
+  --blue-600: #0b5ed7;
+  --glass-bg: rgba(255, 255, 255, 0.10);
+  --glass-border: rgba(13, 110, 253, 0.35);
+  --glass-dark-bg: rgba(6, 31, 79, 0.62);
+  --glass-dark-border: rgba(13, 110, 253, 0.42);
+  --glass-shadow: 0 8px 24px rgba(6, 31, 79, 0.35);
+}
+
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: saturate(120%) blur(14px);
+  -webkit-backdrop-filter: saturate(120%) blur(14px);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-dark {
+  background: var(--glass-dark-bg);
+  border: 1px solid var(--glass-dark-border);
+  backdrop-filter: saturate(120%) blur(16px);
+  -webkit-backdrop-filter: saturate(120%) blur(16px);
+  box-shadow: var(--glass-shadow);
+}
+
+.glass-nav.navbar {
+  background: var(--glass-dark-bg) !important;
+  border-bottom: 1px solid var(--glass-dark-border);
+  backdrop-filter: saturate(120%) blur(14px);
+  -webkit-backdrop-filter: saturate(120%) blur(14px);
+}
+
+.glass-sidebar {
+  background: var(--glass-dark-bg);
+  border-right: 1px solid var(--glass-dark-border);
+  backdrop-filter: saturate(120%) blur(20px);
+  -webkit-backdrop-filter: saturate(120%) blur(20px);
+}
+
+.glass-card, .dashboard-card, .table-container, .form-container, .card.shadow-sm {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  backdrop-filter: saturate(120%) blur(12px);
+  -webkit-backdrop-filter: saturate(120%) blur(12px);
+  box-shadow: var(--glass-shadow);
+}
+
+.nav-link.active, .nav-link.active:hover {
+  background: rgba(13, 110, 253, 0.16) !important;
+  border: 1px solid var(--glass-border);
+}
+
+.glass-btn {
+  background: linear-gradient(135deg, rgba(13, 110, 253, 0.6), rgba(13, 110, 253, 0.35)) !important;
+  border: 1px solid rgba(13, 110, 253, 0.65) !important;
+  color: #fff !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.glass-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 28px rgba(13, 110, 253, 0.35); }
+.glass-btn:active { transform: translateY(0); }
+
+.modal-content, .offcanvas { 
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: saturate(120%) blur(12px);
+  -webkit-backdrop-filter: saturate(120%) blur(12px);
 }
 
 .login-page {
@@ -14,7 +86,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(13, 110, 253, 0.12);
 }
 
 .dashboard-card {

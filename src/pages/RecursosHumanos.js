@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table, Form, Button, Badge, Modal, Spinner }
 import { FaUserPlus, FaSearch, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import { DataContext } from '../context/DataContext';
 
-const RecursosHumanos = () => {
+const HumanResources = () => {
   const { funcionarios, loading, adicionarFuncionario, atualizarFuncionario, removerFuncionario } = useContext(DataContext);
   const [searchTerm, setSearchTerm] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -115,7 +115,7 @@ const RecursosHumanos = () => {
     <Container fluid>
       {loading ? (
         <div className="d-flex flex-column align-items-center justify-content-center" style={{ height: '70vh' }}>
-          <Spinner animation="border" variant="primary" />
+          <Spinner animation="border" variant="secondary" />
           <p className="mt-3">Carregando dados de recursos humanos...</p>
         </div>
       ) : (
@@ -172,9 +172,9 @@ const RecursosHumanos = () => {
                   </Form.Group>
                 </Col>
                 <Col md={4} className="text-end">
-                  <Button variant="primary" onClick={handleAddNew}>
+                  <Button variant="dark" onClick={handleAddNew}>
                     <FaUserPlus className="me-2" />
-                    Novo Funcionário
+                    New Staff Member
                   </Button>
                 </Col>
               </Row>
@@ -184,18 +184,18 @@ const RecursosHumanos = () => {
           {}
           <Card className="shadow-sm">
             <Card.Header className="bg-white">
-              <h5 className="mb-0">Lista de Funcionários</h5>
+              <h5 className="mb-0">Staff List</h5>
             </Card.Header>
             <Card.Body>
               <Table responsive hover>
                 <thead>
                   <tr>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>Setor</th>
-                    <th>Data de Admissão</th>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Department</th>
+                    <th>Hire Date</th>
                     <th>Status</th>
-                    <th>Ações</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -368,10 +368,10 @@ const RecursosHumanos = () => {
            ) : (
              <>
                <Button variant="secondary" onClick={() => setShowModal(false)}>
-                 Cancelar
+                 Cancel
                </Button>
-               <Button variant="primary" onClick={handleSave}>
-                 Salvar
+               <Button variant="dark" onClick={handleSave}>
+                 Save
                </Button>
              </>
            )}
@@ -381,4 +381,4 @@ const RecursosHumanos = () => {
     );
 };
 
-export default RecursosHumanos;
+export default HumanResources;

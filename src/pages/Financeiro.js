@@ -3,7 +3,7 @@ import { Container, Row, Col, Card, Table, Button, Modal, Form, Spinner } from '
 import { FaDownload, FaFileInvoiceDollar, FaChartLine, FaEdit, FaTrash } from 'react-icons/fa';
 import { DataContext } from '../context/DataContext';
 
-const Financeiro = () => {
+const Finance = () => {
   const { transacoes, loading, adicionarTransacao, atualizarTransacao, removerTransacao } = useContext(DataContext);
   const [showModal, setShowModal] = useState(false);
   const [currentTransacao, setCurrentTransacao] = useState(null);
@@ -97,7 +97,7 @@ const Financeiro = () => {
     <Container fluid>
       {loading ? (
         <div className="text-center my-5">
-          <Spinner animation="border" role="status" variant="primary" />
+          <Spinner animation="border" role="status" variant="secondary" />
           <p className="mt-3">Carregando dados financeiros...</p>
         </div>
       ) : (
@@ -193,7 +193,7 @@ const Financeiro = () => {
           {}
           <Card className="shadow-sm">
             <Card.Header className="bg-white d-flex justify-content-between align-items-center">
-              <h5 className="mb-0">Transações Recentes</h5>
+            <h5 className="mb-0">Recent Transactions</h5>
               <div>
                 <Button variant="outline-success" size="sm" className="me-2" onClick={handleNovaTransacao}>
                   <FaFileInvoiceDollar className="me-1" />
@@ -232,7 +232,7 @@ const Financeiro = () => {
                         </td>
                         <td>
                           <Button variant="link" size="sm" className="p-0 me-2" onClick={() => handleEdit(transacao)}>
-                            <FaEdit className="text-primary" />
+            <FaEdit className="text-dark" />
                           </Button>
                           <Button variant="link" size="sm" className="p-0" onClick={() => handleDelete(transacao.id)}>
                             <FaTrash className="text-danger" />
@@ -258,7 +258,7 @@ const Financeiro = () => {
             <Modal.Body>
               <Form>
                 <Form.Group className="mb-3">
-                  <Form.Label>Data</Form.Label>
+            <Form.Label>Date</Form.Label>
                   <Form.Control
                     type="text"
                     name="data"
@@ -304,9 +304,9 @@ const Financeiro = () => {
               <Button variant="secondary" onClick={() => setShowModal(false)}>
                 Cancelar
               </Button>
-              <Button variant="primary" onClick={handleSave}>
-                Salvar
-              </Button>
+               <Button variant="dark" onClick={handleSave}>
+                 Save
+               </Button>
             </Modal.Footer>
           </Modal>
         </>
@@ -315,4 +315,4 @@ const Financeiro = () => {
   );
 };
 
-export default Financeiro;
+export default Finance;

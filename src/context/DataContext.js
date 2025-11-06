@@ -258,7 +258,7 @@ export const DataProvider = ({ children }) => {
   };
 
   const value = {
-    
+    // Portuguese keys (original)
     pacientes,
     agendamentos,
     medicamentos,
@@ -266,6 +266,14 @@ export const DataProvider = ({ children }) => {
     transacoes,
     loading,
 
+    // English aliases
+    patients: pacientes,
+    appointments: agendamentos,
+    medications: medicamentos,
+    staff: funcionarios,
+    transactions: transacoes,
+
+    // Operations (Portuguese)
     adicionarPaciente,
     atualizarPaciente,
     removerPaciente,
@@ -287,11 +295,19 @@ export const DataProvider = ({ children }) => {
     atualizarTransacao,
     removerTransacao,
 
+    // Statistics (Portuguese)
     obterEstatisticasPacientes,
     obterEstatisticasAgendamentos,
     obterEstatisticasMedicamentos,
     obterEstatisticasFuncionarios,
-    obterEstatisticasFinanceiras
+    obterEstatisticasFinanceiras,
+
+    // Statistics (English aliases)
+    getPatientStatistics: obterEstatisticasPacientes,
+    getAppointmentStatistics: obterEstatisticasAgendamentos,
+    getMedicationStatistics: obterEstatisticasMedicamentos,
+    getStaffStatistics: obterEstatisticasFuncionarios,
+    getFinancialStatistics: obterEstatisticasFinanceiras,
   };
 
   return (

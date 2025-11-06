@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Button, Offcanvas } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
-import PerfilUsuario from './PerfilUsuario';
+import { useLanguage } from '../context/LanguageContext';
+import UserProfile from './PerfilUsuario';
 import EVAChat from './EVAChat';
 import { 
   FaHome, FaUserInjured, FaCalendarAlt, FaPills, 
@@ -13,6 +14,7 @@ import {
 const Layout = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   
   const [showSidebar, setShowSidebar] = useState(false);
   const [showPerfilModal, setShowPerfilModal] = useState(false);
@@ -35,7 +37,7 @@ const Layout = () => {
 
   return (
     <div className="d-flex flex-column min-vh-100">
-      <Navbar bg="primary" variant="dark" expand="lg" className="py-2">
+      <Navbar bg="dark" variant="dark" expand="lg" className="py-2 glass-nav">
         <Container fluid>
           <Button 
             variant="outline-light" 
@@ -48,6 +50,16 @@ const Layout = () => {
             Asclepios Clinic
           </Navbar.Brand>
           <div className="ms-auto d-flex align-items-center">
+            <div className="d-flex align-items-center glass rounded-pill px-2 py-1 me-2">
+              <Button variant="outline-light" className="me-2" onClick={handlePerfilClick}>
+                <FaCog className="me-2" />
+                <span className="d-none d-md-inline">{t('nav.profile')}</span>
+              </Button>
+              <Button variant="outline-light" onClick={handleLogout}>
+                <FaSignOutAlt className="me-2" />
+                <span className="d-none d-md-inline">{t('nav.logout')}</span>
+              </Button>
+            </div>
             <div className="text-light me-3 d-none d-md-block">
               <div className="fw-bold d-flex align-items-center">
                 {user?.avatar ? (
@@ -59,33 +71,25 @@ const Layout = () => {
               </div>
               <div className="small">{user?.cargo} - {user?.setor}</div>
             </div>
-            <Button variant="outline-light" className="me-2" onClick={handlePerfilClick}>
-              <FaCog className="me-2" />
-              <span className="d-none d-md-inline">Profile</span>
-            </Button>
-            <Button variant="outline-light" onClick={handleLogout}>
-              <FaSignOutAlt className="me-2" />
-              <span className="d-none d-md-inline">Logout</span>
-            </Button>
           </div>
         </Container>
       </Navbar>
 
       <EVAChat show={showEVAModal} handleClose={() => setShowEVAModal(false)} />
 
-      <PerfilUsuario 
-        show={showPerfilModal} 
-        handleClose={() => setShowPerfilModal(false)} 
+      <UserProfile
+        show={showPerfilModal}
+        handleClose={() => setShowPerfilModal(false)}
       />
       
       <div className="d-flex flex-grow-1">
-        <div className="bg-dark text-white d-none d-lg-flex flex-column" style={{ width: '250px', minHeight: 'calc(100vh - 56px)' }}>
+        <div className="text-white glass-sidebar d-none d-lg-flex flex-column" style={{ width: '250px', minHeight: 'calc(100vh - 56px)' }}>
           <SidebarContent />
         </div>
 
-        <Offcanvas show={showSidebar} onHide={closeSidebar} className="bg-dark text-white" style={{ width: '250px' }}>
+        <Offcanvas show={showSidebar} onHide={closeSidebar} className="glass-sidebar text-white" style={{ width: '250px' }}>
           <Offcanvas.Header closeButton closeVariant="white">
-            <Offcanvas.Title className="text-white">Menu</Offcanvas.Title>
+            <Offcanvas.Title className="text-white">{t('menu.title')}</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <SidebarContent onClick={closeSidebar} />
@@ -102,8 +106,8 @@ const Layout = () => {
 
       <Button 
         onClick={handleEVAClick}
-        variant="primary"
-        className="d-flex align-items-center shadow rounded-circle"
+        variant="dark"
+        className="d-flex align-items-center justify-content-center shadow rounded-circle glass-btn"
         style={{
           position: 'fixed',
           right: '24px',
@@ -112,8 +116,8 @@ const Layout = () => {
           height: '56px',
           zIndex: 1050,
         }}
-        aria-label="Open EVA"
-        title="Open EVA"
+        aria-label={t('eva.open')}
+        title={t('eva.open')}
       >
         <FaRobot size={22} />
       </Button>
@@ -122,14 +126,15 @@ const Layout = () => {
 };
 
 const SidebarContent = ({ onClick }) => {
+  const { t } = useLanguage();
   const menuItems = [
-    { path: '/', icon: <FaHome />, label: 'Dashboard' },
-    { path: '/pacientes', icon: <FaUserInjured />, label: 'Patients' },
-    { path: '/agendamentos', icon: <FaCalendarAlt />, label: 'Appointments' },
-    { path: '/farmacia', icon: <FaPills />, label: 'Pharmacy' },
-    { path: '/rh', icon: <FaUsers />, label: 'Human Resources' },
-    { path: '/financeiro', icon: <FaMoneyBillWave />, label: 'Finance' },
-    { path: '/relatorios', icon: <FaChartBar />, label: 'Reports' },
+    { path: '/', icon: <FaHome />, label: t('menu.dashboard') },
+    { path: '/pacientes', icon: <FaUserInjured />, label: t('menu.patients') },
+    { path: '/agendamentos', icon: <FaCalendarAlt />, label: t('menu.appointments') },
+    { path: '/farmacia', icon: <FaPills />, label: t('menu.pharmacy') },
+    { path: '/rh', icon: <FaUsers />, label: t('menu.hr') },
+    { path: '/financeiro', icon: <FaMoneyBillWave />, label: t('menu.finance') },
+    { path: '/relatorios', icon: <FaChartBar />, label: t('menu.reports') },
   ];
 
   return (
@@ -139,7 +144,7 @@ const SidebarContent = ({ onClick }) => {
           <NavLink 
             to={item.path} 
             className={({ isActive }) => 
-              `nav-link py-3 px-4 d-flex align-items-center ${isActive ? 'active bg-primary' : 'text-white'}`
+              `nav-link py-3 px-4 d-flex align-items-center ${isActive ? 'active' : 'text-white'}`
             }
             onClick={onClick}
           >

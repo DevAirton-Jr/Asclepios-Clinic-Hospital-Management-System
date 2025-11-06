@@ -1,324 +1,165 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Container, Row, Col, Card, Form, Button, Table, Spinner } from 'react-bootstrap';
-import { FaFileDownload, FaChartBar, FaCalendarAlt } from 'react-icons/fa';
+import React, { useContext, useMemo, useState } from 'react';
+import { Container, Row, Col, Card, Table, Form, Badge } from 'react-bootstrap';
 import { DataContext } from '../context/DataContext';
 
-const Relatorios = () => {
-  const { 
-    loading, 
-    pacientes, 
-    agendamentos, 
-    medicamentos, 
-    funcionarios, 
-    transacoes 
-  } = useContext(DataContext);
-  
-  const [tipoRelatorio, setTipoRelatorio] = useState('atendimentos');
-  const [periodoRelatorio, setPeriodoRelatorio] = useState('mensal');
-  const [dataInicio, setDataInicio] = useState('');
-  const [dataFim, setDataFim] = useState('');
-  const [relatorioGerado, setRelatorioGerado] = useState(false);
+const Reports = () => {
+  const { patients, appointments, transactions, loading } = useContext(DataContext);
+  const [reportType, setReportType] = useState('appointments');
 
-  useEffect(() => {
-    const hoje = new Date();
-    const primeiroDia = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
-    const ultimoDia = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
-    
-    setDataInicio(primeiroDia.toISOString().split('T')[0]);
-    setDataFim(ultimoDia.toISOString().split('T')[0]);
-  }, []);
+  const patientStats = useMemo(() => {
+    const total = patients.length;
+    const active = patients.filter(p => p.status === 'ativo').length;
+    const inactive = patients.filter(p => p.status === 'inativo').length;
+    const byInsurance = {
+      Unimed: patients.filter(p => p.convenio === 'Unimed').length,
+      Amil: patients.filter(p => p.convenio === 'Amil').length,
+      'SulAmérica': patients.filter(p => p.convenio === 'SulAmérica').length,
+      Bradesco: patients.filter(p => p.convenio === 'Bradesco').length,
+      Others: patients.filter(p => !['Unimed', 'Amil', 'SulAmérica', 'Bradesco'].includes(p.convenio)).length,
+    };
+    return { total, active, inactive, byInsurance };
+  }, [patients]);
 
-  const gerarDadosRelatorio = () => {
-    setRelatorioGerado(true);
-  };
+  const appointmentStats = useMemo(() => {
+    const total = appointments.length;
+    const confirmed = appointments.filter(a => a.status === 'confirmado').length;
+    const pending = appointments.filter(a => a.status === 'pendente').length;
+    const cancelled = appointments.filter(a => a.status === 'cancelado').length;
+    const bySpecialty = ['Clínica Geral', 'Cardiologia', 'Ortopedia', 'Dermatologia'].map(spec => ({
+      specialty: spec,
+      count: appointments.filter(a => a.especialidade === spec).length,
+    }));
+    const othersCount = appointments.filter(a => !['Clínica Geral', 'Cardiologia', 'Ortopedia', 'Dermatologia'].includes(a.especialidade)).length;
+    if (othersCount > 0) bySpecialty.push({ specialty: 'Others', count: othersCount });
+    return { total, confirmed, pending, cancelled, bySpecialty };
+  }, [appointments]);
 
-  const dadosRelatorio = {
-    atendimentos: [
-      { 
-        id: 1, 
-        nome: 'Consultas Clínica Geral', 
-        quantidade: agendamentos.filter(a => a.especialidade === 'Clínica Geral').length,
-        get percentual() {
-          return Math.round((this.quantidade / (agendamentos.length || 1)) * 100);
-        }
-      },
-      { 
-        id: 2, 
-        nome: 'Consultas Pediatria', 
-        quantidade: agendamentos.filter(a => a.especialidade === 'Pediatria').length,
-        get percentual() {
-          return Math.round((this.quantidade / (agendamentos.length || 1)) * 100);
-        }
-      },
-      { 
-        id: 3, 
-        nome: 'Consultas Cardiologia', 
-        quantidade: agendamentos.filter(a => a.especialidade === 'Cardiologia').length,
-        get percentual() {
-          return Math.round((this.quantidade / (agendamentos.length || 1)) * 100);
-        }
-      },
-      { 
-        id: 4, 
-        nome: 'Consultas Ortopedia', 
-        quantidade: agendamentos.filter(a => a.especialidade === 'Ortopedia').length,
-        get percentual() {
-          return Math.round((this.quantidade / (agendamentos.length || 1)) * 100);
-        }
-      },
-      { 
-        id: 5, 
-        nome: 'Outros Atendimentos', 
-        quantidade: agendamentos.filter(a => !['Clínica Geral', 'Pediatria', 'Cardiologia', 'Ortopedia'].includes(a.especialidade)).length,
-        get percentual() {
-          return Math.round((this.quantidade / (agendamentos.length || 1)) * 100);
-        }
-      }
-    ],
-    financeiro: [
-      { 
-        id: 1, 
-        nome: 'Receitas Consultas', 
-        valor: transacoes.filter(t => t.tipo === 'receita' && t.descricao.includes('Consulta')).reduce((acc, t) => acc + t.valor, 0),
-        get percentual() {
-          const totalReceitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-          return Math.round((this.valor / (totalReceitas || 1)) * 100);
-        }
-      },
-      { 
-        id: 2, 
-        nome: 'Receitas Exames', 
-        valor: transacoes.filter(t => t.tipo === 'receita' && t.descricao.includes('Exame')).reduce((acc, t) => acc + t.valor, 0),
-        get percentual() {
-          const totalReceitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-          return Math.round((this.valor / (totalReceitas || 1)) * 100);
-        }
-      },
-      { 
-        id: 3, 
-        nome: 'Receitas Procedimentos', 
-        valor: transacoes.filter(t => t.tipo === 'receita' && t.descricao.includes('Procedimento')).reduce((acc, t) => acc + t.valor, 0),
-        get percentual() {
-          const totalReceitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-          return Math.round((this.valor / (totalReceitas || 1)) * 100);
-        }
-      },
-      { 
-        id: 4, 
-        nome: 'Outras Receitas', 
-        valor: transacoes.filter(t => t.tipo === 'receita' && !['Consulta', 'Exame', 'Procedimento'].some(term => t.descricao.includes(term))).reduce((acc, t) => acc + t.valor, 0),
-        get percentual() {
-          const totalReceitas = transacoes.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
-          return Math.round((this.valor / (totalReceitas || 1)) * 100);
-        }
-      }
-    ],
-    farmacia: [
-      { 
-        id: 1, 
-        nome: 'Antibióticos', 
-        quantidade: medicamentos.filter(m => m.categoria === 'Antibiótico').reduce((acc, m) => acc + (m.dispensacoes || 0), 0),
-        get percentual() {
-          const totalDispensacoes = medicamentos.reduce((acc, m) => acc + (m.dispensacoes || 0), 0);
-          return Math.round((this.quantidade / (totalDispensacoes || 1)) * 100);
-        }
-      },
-      { 
-        id: 2, 
-        nome: 'Anti-inflamatórios', 
-        quantidade: medicamentos.filter(m => m.categoria === 'Anti-inflamatório').reduce((acc, m) => acc + (m.dispensacoes || 0), 0),
-        get percentual() {
-          const totalDispensacoes = medicamentos.reduce((acc, m) => acc + (m.dispensacoes || 0), 0);
-          return Math.round((this.quantidade / (totalDispensacoes || 1)) * 100);
-        }
-      },
-      { 
-        id: 3, 
-        nome: 'Analgésicos', 
-        quantidade: medicamentos.filter(m => m.categoria === 'Analgésico').reduce((acc, m) => acc + (m.dispensacoes || 0), 0),
-        get percentual() {
-          const totalDispensacoes = medicamentos.reduce((acc, m) => acc + (m.dispensacoes || 0), 0);
-          return Math.round((this.quantidade / (totalDispensacoes || 1)) * 100);
-        }
-      },
-      { 
-        id: 4, 
-        nome: 'Outros Medicamentos', 
-        quantidade: medicamentos.filter(m => !['Antibiótico', 'Anti-inflamatório', 'Analgésico'].includes(m.categoria)).reduce((acc, m) => acc + (m.dispensacoes || 0), 0),
-        get percentual() {
-          const totalDispensacoes = medicamentos.reduce((acc, m) => acc + (m.dispensacoes || 0), 0);
-          return Math.round((this.quantidade / (totalDispensacoes || 1)) * 100);
-        }
-      }
-    ]
-  };
+  const financeStats = useMemo(() => {
+    const revenue = transactions.filter(t => t.tipo === 'receita').reduce((acc, t) => acc + t.valor, 0);
+    const expenses = transactions.filter(t => t.tipo === 'despesa').reduce((acc, t) => acc + t.valor, 0);
+    const net = revenue - expenses;
+    const margin = revenue > 0 ? ((net / revenue) * 100).toFixed(2) : '0.00';
+    return { revenue, expenses, net, margin };
+  }, [transactions]);
 
-  const renderGrafico = () => {
-    const dados = dadosRelatorio[tipoRelatorio];
-    
+  const numberToCurrency = (v) => v.toLocaleString('en-US', { style: 'currency', currency: 'BRL' });
+
+  const SummaryCards = () => {
+    if (reportType === 'appointments') {
+      return (
+        <Row className="g-4 mb-4">
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Total Appointments</h6><h3>{appointmentStats.total}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Confirmed</h6><h3>{appointmentStats.confirmed}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Pending</h6><h3>{appointmentStats.pending}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Cancelled</h6><h3>{appointmentStats.cancelled}</h3></Card.Body></Card></Col>
+        </Row>
+      );
+    }
+    if (reportType === 'patients') {
+      return (
+        <Row className="g-4 mb-4">
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Total Patients</h6><h3>{patientStats.total}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Active</h6><h3>{patientStats.active}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Inactive</h6><h3>{patientStats.inactive}</h3></Card.Body></Card></Col>
+          <Col md={3}><Card className="h-100"><Card.Body><h6>Insurance Plans</h6><h3>{Object.values(patientStats.byInsurance).reduce((a,b)=>a+b,0)}</h3></Card.Body></Card></Col>
+        </Row>
+      );
+    }
     return (
-      <div className="d-flex justify-content-around align-items-end mt-4 mb-3" style={{ height: '200px' }}>
-        {dados.map(item => (
-          <div key={item.id} className="text-center" style={{ width: `${100 / dados.length}%`, minWidth: '100px' }}>
-            <div 
-              className="mx-auto bg-primary" 
-              style={{ 
-                width: '40px', 
-                height: `${item.percentual * 1.8}px`,
-                borderRadius: '4px 4px 0 0'
-              }}
-            ></div>
-            <div className="mt-2 small text-center" style={{ fontSize: '0.8rem', maxWidth: '100px', whiteSpace: 'normal', wordBreak: 'break-word', margin: '0 auto' }}>{item.nome}</div>
-            <div className="fw-bold">{item.percentual}%</div>
-          </div>
-        ))}
-      </div>
+      <Row className="g-4 mb-4">
+        <Col md={3}><Card className="h-100"><Card.Body><h6>Total Revenue</h6><h3>{numberToCurrency(financeStats.revenue)}</h3></Card.Body></Card></Col>
+        <Col md={3}><Card className="h-100"><Card.Body><h6>Total Expenses</h6><h3>{numberToCurrency(financeStats.expenses)}</h3></Card.Body></Card></Col>
+        <Col md={3}><Card className="h-100"><Card.Body><h6>Net Profit</h6><h3>{numberToCurrency(financeStats.net)}</h3></Card.Body></Card></Col>
+        <Col md={3}><Card className="h-100"><Card.Body><h6>Profit Margin</h6><h3><Badge bg="success">{financeStats.margin}%</Badge></h3></Card.Body></Card></Col>
+      </Row>
     );
   };
 
-  const renderTabela = () => {
-    const dados = dadosRelatorio[tipoRelatorio];
-    
+  const DetailTable = () => {
+    if (reportType === 'appointments') {
+      return (
+        <Card className="shadow-sm">
+          <Card.Header className="bg-white"><h5 className="mb-0">Appointments by Specialty</h5></Card.Header>
+          <Card.Body>
+            <Table hover responsive>
+              <thead><tr><th>Specialty</th><th>Count</th></tr></thead>
+              <tbody>
+                {appointmentStats.bySpecialty.map((s, i) => (
+                  <tr key={i}><td>{s.specialty}</td><td>{s.count}</td></tr>
+                ))}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
+      );
+    }
+    if (reportType === 'patients') {
+      return (
+        <Card className="shadow-sm">
+          <Card.Header className="bg-white"><h5 className="mb-0">Patients by Insurance</h5></Card.Header>
+          <Card.Body>
+            <Table hover responsive>
+              <thead><tr><th>Insurance</th><th>Count</th></tr></thead>
+              <tbody>
+                {Object.entries(patientStats.byInsurance).map(([name, count]) => (
+                  <tr key={name}><td>{name}</td><td>{count}</td></tr>
+                ))}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
+      );
+    }
     return (
-      <Table responsive hover className="mt-4">
-        <thead>
-          <tr>
-            <th>Item</th>
-            {tipoRelatorio === 'financeiro' ? (
-              <th>Valor</th>
-            ) : (
-              <th>Quantidade</th>
-            )}
-            <th>Percentual</th>
-          </tr>
-        </thead>
-        <tbody>
-          {dados.map(item => (
-            <tr key={item.id}>
-              <td>{item.nome}</td>
-              {tipoRelatorio === 'financeiro' ? (
-                <td>R$ {item.valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</td>
-              ) : (
-                <td>{item.quantidade}</td>
-              )}
-              <td>{item.percentual}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <Card className="shadow-sm">
+        <Card.Header className="bg-white"><h5 className="mb-0">Recent Transactions</h5></Card.Header>
+        <Card.Body>
+          <Table hover responsive>
+            <thead><tr><th>Date</th><th>Type</th><th>Description</th><th>Amount</th></tr></thead>
+            <tbody>
+              {transactions.slice(0, 10).map(t => (
+                <tr key={t.id}>
+                  <td>{t.data}</td>
+                  <td>{t.tipo === 'receita' ? 'Revenue' : 'Expense'}</td>
+                  <td>{t.descricao}</td>
+                  <td>{numberToCurrency(t.valor)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card.Body>
+      </Card>
     );
   };
 
   return (
-    <Container fluid>
-      {loading ? (
-        <div className="text-center my-5">
-          <Spinner animation="border" role="status" variant="primary" />
-          <p className="mt-3">Carregando dados para relatórios...</p>
-        </div>
-      ) : (
-        <>
-          <Row className="mb-4">
-            <Col>
-              <Card className="shadow-sm">
-                <Card.Header className="bg-white">
-                  <h5 className="mb-0">Geração de Relatórios</h5>
-                </Card.Header>
-                <Card.Body>
-                  <Row>
-                    <Col md={3}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Tipo de Relatório</Form.Label>
-                        <Form.Select 
-                          value={tipoRelatorio}
-                          onChange={(e) => setTipoRelatorio(e.target.value)}
-                        >
-                          <option value="atendimentos">Atendimentos</option>
-                          <option value="financeiro">Financeiro</option>
-                          <option value="farmacia">Farmácia</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </Col>
-                    <Col md={3}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Período</Form.Label>
-                        <Form.Select
-                          value={periodoRelatorio}
-                          onChange={(e) => setPeriodoRelatorio(e.target.value)}
-                        >
-                          <option value="semanal">Semanal</option>
-                          <option value="mensal">Mensal</option>
-                          <option value="trimestral">Trimestral</option>
-                          <option value="anual">Anual</option>
-                        </Form.Select>
-                      </Form.Group>
-                    </Col>
-                    <Col md={3}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Data Início</Form.Label>
-                        <Form.Control
-                          type="date"
-                          value={dataInicio}
-                          onChange={(e) => setDataInicio(e.target.value)}
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col md={3} className="d-flex align-items-end">
-                      <Button variant="primary" className="w-100" onClick={gerarDadosRelatorio}>
-                        <FaChartBar className="me-2" />
-                        Gerar Relatório
-                      </Button>
-                    </Col>
-                  </Row>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {relatorioGerado && (
-            <Row>
-              <Col>
-                <Card className="shadow-sm">
-                  <Card.Header className="bg-white d-flex justify-content-between align-items-center">
-                    <h5 className="mb-0">
-                      Relatório de {tipoRelatorio === 'atendimentos' ? 'Atendimentos' : 
-                                  tipoRelatorio === 'financeiro' ? 'Financeiro' : 'Farmácia'} - {
-                                  periodoRelatorio === 'semanal' ? 'Semanal' :
-                                  periodoRelatorio === 'mensal' ? 'Mensal' :
-                                  periodoRelatorio === 'trimestral' ? 'Trimestral' : 'Anual'}
-                    </h5>
-                    <div>
-                      <Button variant="outline-secondary" size="sm" className="me-2">
-                        <FaCalendarAlt className="me-1" />
-                        Período: {new Date(dataInicio).toLocaleDateString('pt-BR')} a {new Date(dataFim).toLocaleDateString('pt-BR')}
-                      </Button>
-                      <Button variant="outline-primary" size="sm">
-                        <FaFileDownload className="me-1" />
-                        Exportar
-                      </Button>
-                    </div>
-                  </Card.Header>
-                  <Card.Body>
-                    {}
-                    <div className="border-bottom pb-4">
-                      <h6 className="text-center text-muted mb-3">Distribuição Percentual</h6>
-                      {renderGrafico()}
-                    </div>
-                    
-                    {}
-                    <div className="pt-2">
-                      <h6 className="text-muted mb-2">Detalhamento</h6>
-                      {renderTabela()}
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          )}
-        </>
-      )}
+    <Container fluid className="p-4">
+      <Row>
+        <Col>
+          <Card className="shadow-sm">
+            <Card.Header className="bg-white d-flex align-items-center justify-content-between">
+              <h4 className="mb-0">Reports</h4>
+              <Form.Select size="sm" style={{ width: 220 }} value={reportType} onChange={(e)=>setReportType(e.target.value)}>
+                <option value="appointments">Appointments</option>
+                <option value="patients">Patients</option>
+                <option value="finance">Finance</option>
+              </Form.Select>
+            </Card.Header>
+            <Card.Body>
+              {loading ? (
+                <div className="text-center p-4">Loading reports...</div>
+              ) : (
+                <>
+                  <SummaryCards />
+                  <DetailTable />
+                </>
+              )}
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
     </Container>
   );
 };
 
-export default Relatorios;
+export default Reports;

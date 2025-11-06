@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { Modal, Form, Button, Row, Col, Image } from 'react-bootstrap';
 import { useAuth } from '../context/AuthContext';
+import { useLanguage } from '../context/LanguageContext';
 
-const PerfilUsuario = ({ show, handleClose }) => {
+const UserProfile = ({ show, handleClose }) => {
   const { user, updateUserProfile } = useAuth();
+  const { language, setLanguage } = useLanguage();
   const [formData, setFormData] = useState({
     nome: user?.nome || '',
     email: user?.email || '',
     cargo: user?.cargo || '',
     setor: user?.setor || '',
-    tema: user?.tema || 'claro',
-    corPrimaria: user?.corPrimaria || '#0d6efd',
-    avatar: user?.avatar || ''
+    tema: user?.tema || 'light',
+    avatar: user?.avatar || '',
+    language: user?.language || language || 'en'
   });
 
   const handleChange = (e) => {
@@ -25,6 +27,8 @@ const PerfilUsuario = ({ show, handleClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     updateUserProfile(formData);
+    // Apply language immediately for this session
+    setLanguage(formData.language);
     handleClose();
   };
 
@@ -42,26 +46,26 @@ const PerfilUsuario = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose} size="lg">
       <Modal.Header closeButton>
-        <Modal.Title>User Profile</Modal.Title>
+        <Modal.Title>User Settings</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col md={4} className="text-center mb-3">
               <Image 
-                src={formData.avatar || 'data:image/svg+xml;utf8,<svg xmlns=%22http:
+                src={formData.avatar || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#6c757d"/></svg>'}
                 roundedCircle
                 style={{ width: 120, height: 120, objectFit: 'cover', border: '3px solid #dee2e6' }}
                 alt="Avatar"
               />
               <Form.Group className="mt-3">
-                <Form.Label>Foto de Perfil</Form.Label>
+                <Form.Label>Profile Picture</Form.Label>
                 <Form.Control type="file" accept="image/*" onChange={handleAvatarChange} />
               </Form.Group>
             </Col>
             <Col md={8}>
               <Form.Group className="mb-3">
-                <Form.Label>Nome</Form.Label>
+                <Form.Label>Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="nome"
@@ -88,7 +92,7 @@ const PerfilUsuario = ({ show, handleClose }) => {
           <Row>
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Cargo</Form.Label>
+                <Form.Label>Role</Form.Label>
                 <Form.Control
                   type="text"
                   name="cargo"
@@ -99,7 +103,7 @@ const PerfilUsuario = ({ show, handleClose }) => {
             </Col>
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Setor</Form.Label>
+                <Form.Label>Department</Form.Label>
                 <Form.Control
                   type="text"
                   name="setor"
@@ -113,28 +117,11 @@ const PerfilUsuario = ({ show, handleClose }) => {
           <Row className="mt-4">
             <Col md={6}>
               <Form.Group className="mb-3">
-                <Form.Label>Tema</Form.Label>
-                <Form.Select
-                  name="tema"
-                  value={formData.tema}
-                  onChange={handleChange}
-                >
-                  <option value="claro">Claro</option>
-                  <option value="escuro">Escuro</option>
-                  <option value="sistema">Seguir Sistema</option>
+                <Form.Label>Language</Form.Label>
+                <Form.Select name="language" value={formData.language} onChange={handleChange}>
+                  <option value="en">English</option>
+                  <option value="pt">Português</option>
                 </Form.Select>
-              </Form.Group>
-            </Col>
-            <Col md={6}>
-              <Form.Group className="mb-3">
-                <Form.Label>Cor Primária</Form.Label>
-                <Form.Control
-                  type="color"
-                  name="corPrimaria"
-                  value={formData.corPrimaria}
-                  onChange={handleChange}
-                  title="Escolha a cor primária"
-                />
               </Form.Group>
             </Col>
           </Row>
@@ -142,14 +129,14 @@ const PerfilUsuario = ({ show, handleClose }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cancelar
+          Cancel
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
-          Salvar Alterações
+        <Button variant="dark" onClick={handleSubmit}>
+          Save Changes
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default PerfilUsuario;
+export default UserProfile;
