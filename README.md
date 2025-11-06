@@ -1,10 +1,14 @@
 # Asclepios Clinic — Hospital Management System
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=white)
-![React%20Router](https://img.shields.io/badge/React%20Router-6-CA4245?logo=react-router&logoColor=white)
-![Bootstrap](https://img.shields.io/badge/Bootstrap-5-7952B3?logo=bootstrap&logoColor=white)
-![React%20Bootstrap](https://img.shields.io/badge/React%20Bootstrap-2-41B4E6?logo=react&logoColor=white)
-![Chart.js](https://img.shields.io/badge/Chart.js-4-F5788D?logo=chart.js&logoColor=white)
+![React](https://img.shields.io/badge/React-18.2.0-20232A?logo=react&logoColor=61DAFB)
+![React Router](https://img.shields.io/badge/React_Router-6.26-CA4245?logo=reactrouter&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-563D7C?logo=bootstrap&logoColor=white)
+![React Bootstrap](https://img.shields.io/badge/React_Bootstrap-2.10-38BDF8?logo=react&logoColor=white)
+![Chart.js](https://img.shields.io/badge/Chart.js-4.4.3-F5788D?logo=chartdotjs&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-16+-339933?logo=nodedotjs&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Status](https://img.shields.io/badge/Status-In_Development-yellow)
+![Platform](https://img.shields.io/badge/Platform-Web-lightgrey)
 
 Modern hospital management interface with modules for Patients, Appointments, Pharmacy, Finance, Reports, and an integrated virtual assistant (EVA).  
 This repository is 100% frontend (React); data and authentication are simulated via Context API and `localStorage`.
